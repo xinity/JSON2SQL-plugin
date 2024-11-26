@@ -1,18 +1,20 @@
-# JSON-API-plugin
+# JSON2SQL-plugin
 Creating an internal JSON API to access datas straight from said API
 
 GET → SELECT
-Translate API GET requests into SELECT statements
-Example: GET /users/123 → SELECT * FROM users WHERE id = 123
+Translate API GET requests into SELECT/CALL statements
+Example: GET /v1/tables/SCHEMA/TABLE/PKNAME/PKVALUE → SELECT * FROM SCHEMA.TABLE WHERE PKNAME = PKVALUE
+         GET /v1/procedures/SCHEMA/PROCEDURE → USE SCHEMA;CALL PROCEDURE
 
 POST → INSERT
-Map POST requests to INSERT statements for creating new records
-Example: POST /users (with JSON body) → INSERT INTO users (name, email) VALUES ('John', 'john@example.com')
+Map POST requests to INSERT/CALL statements for creating new records
+Example: POST /v1/tables/SCHEMA/TABLE (with JSON body) → INSERT INTO SCHEMA.TABLE (name, email) VALUES ('John', 'john@example.com')
+         POST /v1/procedures/SCHEMA/PROCEDURE → USE SCHEMA;CALL PROCEDURE
 
 PUT → UPDATE
 Convert PUT requests to UPDATE statements for modifying existing records
-Example: PUT /users/123 (with JSON body) → UPDATE users SET name = 'John Doe' WHERE id = 123
+Example: PUT /v1/tables/SCHEMA/TABLE/PKNAME/PKVALUE (with JSON body) → UPDATE SCHEMA.TABLE SET name = 'John Doe' WHERE PKNAME = PKVALUE
 
 DELETE → DELETE
 Transform DELETE requests into DELETE statements for removing records
-Example: DELETE /users/123 → DELETE FROM users WHERE id = 123
+Example: DELETE /v1/tables/SCHEMA/TABLE/PKNAME/PKVALUE → DELETE FROM SCHEMA.TABLE WHERE PKNAME = PKVALUE
