@@ -1,7 +1,8 @@
 # Use Ubuntu 20.04 as the base image
 FROM ubuntu:20.04
 
-LABEL org.opencontainers.image.authors="Sylvain Arbaudie <arbaudie.it@gmail.com>"
+# Add a label for the image author
+LABEL maintainer="arbaudie.it@gmail.com"
 
 # Avoid prompts from apt
 ENV DEBIAN_FRONTEND=noninteractive
@@ -28,7 +29,7 @@ RUN apt-get update && apt-get install -y mariadb-server
 WORKDIR /app
 
 # Clone your GitHub repository
-RUN git clone https://github.com/SylvainA77/JSON2SQL-plugin.git .
+RUN git clone https://github.com/SylvainA77/JSON2SQL-plugin.git /app
 
 # Build your project
 RUN mkdir build && cd build && \
