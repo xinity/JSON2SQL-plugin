@@ -1,8 +1,10 @@
-REQUEST : 
-  GET /v1/tables/SCHEMA/TABLE/COLNAME/COLVALUE
+# Translate API GET requests into SELECT statements  
+  
+* GET /v1/tables/SCHEMA/TABLE/COLNAME/COLVALUE → SELECT * FROM SCHEMA.TABLE WHERE COLNAME = COLVALUE  
 
-ANSWER  
-If 0 row found  
+## RESULT  
+
+* If 0 row found  
 {
   "source": "tables",
   "schema": "schema_name",
@@ -13,7 +15,7 @@ If 0 row found
   "rows": 0
 }
 
-If 1+ rows found  
+* If 1+ rows found  
 {
   "source": "tables",
   "schema": "schema_name",
