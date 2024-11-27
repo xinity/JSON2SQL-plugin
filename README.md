@@ -3,10 +3,7 @@
 
 * [GET → SELECT](https://github.com/SylvainA77/JSON-API-plugin/blob/main/doc/handle_get_request.md)  
 
-* [POST → INSERT]()  
-Map POST requests to INSERT/CALL statements for creating new records
-Example: POST /v1/tables/SCHEMA/TABLE (with JSON body) → INSERT INTO SCHEMA.TABLE (name, email) VALUES ('John', 'john@example.com')
-         POST /v1/procedures/SCHEMA/PROCEDURE → USE SCHEMA;CALL PROCEDURE
+* [POST → INSERT](https://github.com/SylvainA77/JSON2SQL-plugin/blob/main/doc/handle_post_request.md)  
 
 * [PUT → UPDATE]()  
 Convert PUT requests to UPDATE statements for modifying existing records
