@@ -16,6 +16,10 @@ Example: PUT /v1/tables/SCHEMA/TABLE/PKNAME/PKVALUE (with JSON body) → UPDATE 
 Transform DELETE requests into DELETE statements for removing records
 Example: DELETE /v1/tables/SCHEMA/TABLE/PKNAME/PKVALUE → DELETE FROM SCHEMA.TABLE WHERE PKNAME = PKVALUE
 
+## compilation instructions
+
+* [instructions](https://github.com/SylvainA77/JSON-API-plugin/blob/main/compilation.md)
+
 ## upcoming features
 
 * [TODO](https://github.com/SylvainA77/JSON-API-plugin/blob/main/TODO.md)
