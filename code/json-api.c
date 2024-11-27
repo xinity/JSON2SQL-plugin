@@ -10,7 +10,7 @@
 #define PLUGIN_LICENSE_GPL   "GNU AGPL v3"
 
 // TODO : managing port via a system variable
-#define PORT 8080
+#define PORT 3000
 
 // TODO : managing credentials through JWTs and request body
 #define APIUSER "apiadmin"
