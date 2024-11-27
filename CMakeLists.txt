@@ -6,13 +6,13 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED True)
 
 # Find required packages
-find_package(MariaDB REQUIRED)
-find_package(MySQL REQUIRED)
+#find_package(MariaDB REQUIRED)
+#find_package(MySQL REQUIRED)
 find_package(CJSON REQUIRED)
 find_package(MHD REQUIRED)
 
 # Include directories
-include_directories(${MYSQL_INCLUDE_DIR})
+#include_directories(${MYSQL_INCLUDE_DIR})
 include_directories(${CJSON_INCLUDE_DIR})
 include_directories(${MHD_INCLUDE_DIR})
 include_directories(/usr/include/mysql)
@@ -22,9 +22,10 @@ add_library(json2sql MODULE code/json-api.c)
 
 # Link libraries
 target_link_libraries(json2sql 
-    ${MYSQL_LIBRARY}
+#    ${MYSQL_LIBRARY}
     ${CJSON_LIBRARIES}
     ${MHD_LIBRARIES} 
+    /usr/lib/mysql
 )
 
 # Set output directory for the plugin
