@@ -1,4 +1,4 @@
-# JSON2SQL-plugin
+# json2sql-plugin
 ## Creating an internal JSON API to access datas from remote
 
 * [GET → SELECT](https://github.com/SylvainA77/JSON-API-plugin/blob/main/doc/handle_get_request.md)  
