@@ -3,7 +3,7 @@
 * POST /v1/tables/SCHEMA/TABLE {"COLs":"VALs" ... } → INSERT INTO SCHEMA.TABLE (COLs,...) VALUES (VALs,...)  
 
 ## RESULT  
-* If failure
+* If failure  
  {
   "source": "tables",
   "schema": "schema_name",
