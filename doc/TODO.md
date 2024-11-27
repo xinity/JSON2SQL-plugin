@@ -8,8 +8,8 @@
 * handling UPSERTS
 * handling POST/UPDATE
 * handling DELETE/DELETE
-* securing the API
-* handling DB credentials through request body
+* securing the API with HTTPS
+* handling DB credentials through request body (token beaer ?)
 * handling simple joins for select
 * handling stored procedure calls
 
