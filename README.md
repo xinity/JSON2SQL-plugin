@@ -1,7 +1,7 @@
 # JSON2SQL-plugin
 ## Creating an internal JSON API to access datas from remote
 
-* [GET → SELECT](https://github.com/SylvainA77/JSON-API-plugin/blob/main/handle_get_request.md)  
+* [GET → SELECT](https://github.com/SylvainA77/JSON-API-plugin/blob/main/doc/handle_get_request.md)  
 
 * [POST → INSERT]()  
 Map POST requests to INSERT/CALL statements for creating new records
@@ -18,8 +18,8 @@ Example: DELETE /v1/tables/SCHEMA/TABLE/PKNAME/PKVALUE → DELETE FROM SCHEMA.TA
 
 ## compilation instructions
 
-* [instructions](https://github.com/SylvainA77/JSON-API-plugin/blob/main/compilation.md)
+* [instructions](https://github.com/SylvainA77/JSON-API-plugin/blob/main/doc/compilation.md)
 
 ## upcoming features
 
-* [TODO](https://github.com/SylvainA77/JSON-API-plugin/blob/main/TODO.md)
+* [TODO](https://github.com/SylvainA77/JSON-API-plugin/blob/main/doc/TODO.md)
