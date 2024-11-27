@@ -1,6 +1,6 @@
 # Translate API POST requests into INSERT statements  
   
-* POST /v1/tables/SCHEMA/TABLE {json body} → INSERT INTO SCHEMA.TABLE (COLs...] VALUES (vals..), (vals..)  
+* POST /v1/tables/SCHEMA/TABLE {"COLs":"VALs" ... } → INSERT INTO SCHEMA.TABLE (COLs,...) VALUES (VALs,...)  
 
 ## RESULT  
 * If failure
