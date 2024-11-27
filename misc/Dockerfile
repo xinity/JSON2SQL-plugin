@@ -1,6 +1,8 @@
 # Use Ubuntu 20.04 as the base image
 FROM ubuntu:20.04
 
+LABEL org.opencontainers.image.authors="Sylvain Arbaudie <arbaudie.it@gmail.com>"
+
 # Avoid prompts from apt
 ENV DEBIAN_FRONTEND=noninteractive
 
