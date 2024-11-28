@@ -13,13 +13,18 @@ set(CMAKE_C_STANDARD_REQUIRED True)
 
 # Add the plugin library
 add_library(json2sql MODULE code/json-api.c)
+target_include_directories(json2sql PRIVATE
+    /usr/include/mysql/
+    /usr/include/mysql/server/
+    /usr/include/cjson/
+    /usr/include/
+)
 
 # Link libraries
 target_link_libraries(json2sql
-    /usr/include/mysql/mysql.h
-    /usr/include/cjson/cJSON.h
-    /usr/include/microhttpd.h
-    /user/include/mysql/server/mysql/plugin.h
+    /mysql
+    cJSON
+    microhttpd
 )
 
 # Set output directory for the plugin
