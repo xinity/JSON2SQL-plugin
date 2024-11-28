@@ -12,7 +12,7 @@
 // cJSON headers
 #include <cjson/cJSON.h>
 
-#define MYSQL_DAEMON_PLUGIN  3  /* The daemon/raw plugin type */
+// #define MYSQL_DAEMON_PLUGIN  3  /* The daemon/raw plugin type */
 #define PLUGIN_NAME          "json2sql"
 #define PLUGIN_AUTHOR        "Sylvain Arbaudie <arbaudie.it@gmail.com>"
 #define PLUGIN_DESCRIPTION   "JSON-to-SQL API Plugin for MariaDB"
@@ -40,7 +40,7 @@ const char *resources[] = {
 const int num_resources = sizeof(resources) / sizeof(resources[0]);
 
 // defining the daemon structure
-static struct MHD_Daemon *daemon = NULL;
+static struct MHD_Daemon *listener = NULL;
 
 // Function to check if the requested URL is a valid resource
 int is_valid_resource(const char *url) {
@@ -233,7 +233,7 @@ char *response = handle_delete_request(url);
 }
 
 static int json_api_plugin_init(void *p) {
-    daemon = MHD_start_daemon(MHD_USE_INTERNAL_POLLING_THREAD | MHD_USE_DEBUG,
+    listener = MHD_start_daemon(MHD_USE_INTERNAL_POLLING_THREAD | MHD_USE_DEBUG,
                               PORT, NULL, NULL,
                               &request_handler, NULL,
                               MHD_OPTION_END);
@@ -247,9 +247,9 @@ static int json_api_plugin_init(void *p) {
 }
 
 static int json_api_plugin_deinit(void *p) {
-    if (daemon != NULL) {
-        MHD_stop_daemon(daemon);
-        daemon = NULL;
+    if (listener != NULL) {
+        MHD_stop_daemon(listener);
+        listener = NULL;
         printf("HTTP server stopped.\n");
     }
     return 0;
