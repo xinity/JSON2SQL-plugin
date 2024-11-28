@@ -15,7 +15,7 @@ add_library(json2sql MODULE code/json-api.c)
 
 # Set output directory for the plugin
 set_target_properties(json2sql PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/plugin" )
+    LIBRARY_OUTPUT_DIRECTORY "/app/plugin" )
 
 # Installation rules
 install(TARGETS json2sql
