@@ -8,7 +8,7 @@ set(CMAKE_C_STANDARD_REQUIRED True)
 # Include directories
 include_directories(/usr/include/mysql/)
 include_directories(/usr/include/cjson/)
-include_directories(/user/include/)
+include_directories(/usr/include/)
 
 # Add the plugin library
 add_library(json2sql MODULE code/json-api.c)
