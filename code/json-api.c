@@ -63,8 +63,8 @@ static int send_json_response(struct MHD_Connection *connection, const char *jso
 static char* handle_get_request(const char *url, const char *upload_data, size_t *upload_data_size) {
     char schema[64];  
     char table[64];
-    char pkname[64];
-    char pkvalue[64];
+    char colname[64];
+    char colvalue[64];
     char procname[64];
     char query[512]="";
     
