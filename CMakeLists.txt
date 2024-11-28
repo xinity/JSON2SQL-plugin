@@ -19,4 +19,5 @@ set_target_properties(json2sql PROPERTIES
 
 # Installation rules
 install(TARGETS json2sql
-    LIBRARY DESTINATION "/usr/lib64/mysql/plugin/" )
+    LIBRARY DESTINATION "/usr/lib64/mysql/plugin/" 
+    )
