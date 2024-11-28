@@ -11,11 +11,6 @@
 # cJSON headers
 #include <cjson/cJSON.h>
 
-#define HTTP_BAD_REQUEST 400
-#define HTTP_METHOD_NOT_ALLOWED 405
-#define HTPP_UNAUTHORIZED 401
-#define HTTP_OK 200
-
 #define MYSQL_DAEMON_PLUGIN  3  /* The daemon/raw plugin type */
 #define PLUGIN_NAME          "JSON2SQL"
 #define PLUGIN_AUTHOR        "Sylvain Arbaudie"
