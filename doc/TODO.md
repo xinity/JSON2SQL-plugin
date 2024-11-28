@@ -3,13 +3,13 @@
 * creating system variables to handle port
 * ability to limit the available ressources via cnf file
 * handling HTTP response codes
-* handling PUT/INSERT
+* handling POST/INSERT
 * handling mutli-lines INSERTs
 * handling UPSERTS
-* handling POST/UPDATE
+* handling PATCH/UPDATE
 * handling DELETE/DELETE
 * securing the API with HTTPS
-* handling DB credentials through request body (token beaer ?)
+* handling DB credentials through request body (token bearer ?)
 * handling simple joins for select
 * handling stored procedure calls
 
