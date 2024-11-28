@@ -11,6 +11,11 @@
 # cJSON headers
 #include <cjson/cJSON.h>
 
+#define HTTP_BAD_REQUEST 400
+#define HTTP_METHOD_NOT_ALLOWED 405
+#define HTPP_UNAUTHORIZED 401
+#define HTTP_OK 200
+
 #define MYSQL_DAEMON_PLUGIN  3  /* The daemon/raw plugin type */
 #define PLUGIN_NAME          "JSON2SQL"
 #define PLUGIN_AUTHOR        "Sylvain Arbaudie"
@@ -33,7 +38,6 @@ static struct st_mysql_daemon json_api_plugin = {
 // TODO : ability to declare the list in a config file / system variable
 const char *resources[] = {
     "/v1/tables/",
-    "/v1/procedures/",
     "/v1/procedures/"
 };
 const int num_resources = sizeof(resources) / sizeof(resources[0]);
@@ -49,6 +53,8 @@ int is_valid_resource(const char *url) {
 }
 
 // TODO : stick to the HTTP API return codes best practices
+// 400 : bad request - malformed request
+// 405 : method not allowed - method does not exist for ressource
 static int send_json_response(struct MHD_Connection *connection, const char *json_string) {
     struct MHD_Response *response = MHD_create_response_from_buffer(strlen(json_string), (void *)json_string, MHD_RESPMEM_MUST_COPY);
     MHD_add_response_header(response, "Content-Type", "application/json");
@@ -57,7 +63,7 @@ static int send_json_response(struct MHD_Connection *connection, const char *jso
     return ret;
 }
 
-static char* handle_get_request(const char *url) {
+static char* handle_get_request(const char *url, const char *upload_data, size_t *upload_data_size) {
     char schema[64];  
     char table[64];
     char pkname[64];
@@ -183,13 +189,13 @@ static int request_handler(void *cls, struct MHD_Connection *connection,
                            size_t *upload_data_size, void **con_cls) {
 
 if (strcmp(method, "GET") == 0) {
-char *response = handle_get_request(url);
+char *response = handle_get_request(url, upload_data, upload_data_size);
     if (response) {
         int ret = send_json_response(connection, response);
         free(response); // Free the allocated JSON string
         return ret;
     } else {
-        return send_json_response(connection, "{\"message\": \"Invalid GET request\"}");
+        return send_json_response(connection, "{\"error\": \"Invalid GET request\"}");
     }
     } else if (strcmp(method, "POST") == 0) {
 char *response = handle_post_request(url);
@@ -198,7 +204,7 @@ char *response = handle_post_request(url);
         free(response); // Free the allocated JSON string
         return ret;
     } else {
-        return send_json_response(connection, "{\"message\": \"Invalid POST request\"}");
+        return send_json_response(connection, "{\"error\": \"Invalid POST request\"}");
     }
     } else if (strcmp(method, "PUT") == 0) {
 char *response = handle_put_request(url);
@@ -207,7 +213,7 @@ char *response = handle_put_request(url);
         free(response); // Free the allocated JSON string
         return ret;
     } else {
-        return send_json_response(connection, "{\"message\": \"Invalid PUT request\"}");
+        return send_json_response(connection, "{\"error\": \"Invalid PUT request\"}");
     }
     } else if (strcmp(method, "DELETE") == 0) {
 char *response = handle_delete_request(url);
@@ -216,7 +222,7 @@ char *response = handle_delete_request(url);
         free(response); // Free the allocated JSON string
         return ret;
     } else {
-        return send_json_response(connection, "{\"message\": \"Invalid DELETE request\"}");
+        return send_json_response(connection, "{\"error\": \"Invalid DELETE request\"}");
     }
     } else {
         // Method not supported
