@@ -1,6 +1,6 @@
 # Translate API POST requests into INSERT statements  
   
-* POST /v1/tables/ /v1/tables/ {"schema":SCHEMA, "table":TABLE, "COLNAME1":COLVALUE1, ... "COLNAMEn":COLVALUEn} → INSERT INTO SCHEMA.TABLE (COLNAME1,...,COLNAMEn) VALUES (COLVALUE1,...,COLVALUEn)  
+* POST /v1/tables/ {"schema":SCHEMA, "table":TABLE, "COLNAME1":COLVALUE1, ... "COLNAMEn":COLVALUEn} → INSERT INTO SCHEMA.TABLE (COLNAME1,...,COLNAMEn) VALUES (COLVALUE1,...,COLVALUEn)  
 
 ## RESULT  
 * If failure  
@@ -22,4 +22,17 @@
   "table": "table_name",
   "status": "OK",
   "rows": n
+}
+
+* POST /v1/procedures/ {"schema":"SCHEMA, "procedure":PROCEDURE, "arg1":val1, ... , "argn":valn } → USE SCHEMA; CALL PROCEDURE(arg1, ... , argn);
+
+## RESULT
+* If failure  
+{
+  "request": "POST",
+} 
+
+* If OK  
+{
+  "request":"POST",
 }
