@@ -4,6 +4,7 @@
 ## RESULT  
 * If failure  
  {
+  "request":"DELETE",
   "source": "tables",
   "schema": "schema_name",
   "table": "table_name",
@@ -14,6 +15,7 @@
 
 * If OK  
 {
+  "request":""DELETE",
   "source": "tables",
   "schema": "schema_name",
   "table": "table_name",
