@@ -60,19 +60,20 @@ static int send_json_response(struct MHD_Connection *connection, const char *jso
     return ret;
 }
 
-static char* handle_get_request(const char *url, const char *upload_data, size_t *upload_data_size) {
+static char* handle_get_request(const char *url) {
     char schema[64];  
     char table[64];
     char colname[64];
     char colvalue[64];
     char procname[64];
     char query[512]="";
+
+    // initialize the JSON answer
+    cJSON *json = cJSON_CreateObject();
     
     if (sscanf(url, "/v1/tables/%64[^/]/%64[^/]/%64[^/]/%64s", schema, table, colname, colvalue) == 4) {   
         // Here query database
         snprintf(query, sizeof(query), "SELECT * FROM %s.%s WHERE %s = '%s'", schema, table, colname, colvalue);
-        // initialize the JSON answer
-        cJSON *json = cJSON_CreateObject();
         cJSON_AddStringToObject(json, "source", "tables");
         cJSON_AddStringToObject(json, "schema", schema);
         cJSON_AddStringToObject(json, "table", table);
