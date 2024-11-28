@@ -13,10 +13,10 @@
 #include <cjson/cJSON.h>
 
 #define MYSQL_DAEMON_PLUGIN  3  /* The daemon/raw plugin type */
-#define PLUGIN_NAME          "JSON2SQL"
-#define PLUGIN_AUTHOR        "Sylvain Arbaudie"
-#define PLUGIN_DESCRIPTION   "JSON API Plugin for MariaDB"
-#define PLUGIN_LICENSE_GPL   "GNU AGPL v3"
+#define PLUGIN_NAME          "json2sql"
+#define PLUGIN_AUTHOR        "Sylvain Arbaudie <arbaudie.it@gmail.com>"
+#define PLUGIN_DESCRIPTION   "JSON-to-SQL API Plugin for MariaDB"
+// #define PLUGIN_LICENSE_GPL   "GNU AGPL v3"
 
 // TODO : managing port via a system variable
 #define PORT 3000
