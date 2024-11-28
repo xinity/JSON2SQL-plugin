@@ -1,5 +1,5 @@
 # Translate DELETE requests into DELETE statements
-* DELETE /v1/tables/SCHEMA/TABLE/COLNAME/COLVALUE → DELETE FROM SCHEMA.TABLE WHERE COLNAME = COLVALUE
+* DELETE /v1/tables/ {"schema":SCHEMA, "table":TABLE, "column-name":COLNAME, "column-value":COLVALUE} → DELETE FROM SCHEMA.TABLE WHERE COLNAME = COLVALUE
 
 ## RESULT  
 * If failure  
