@@ -1,5 +1,5 @@
-# Translate PUT requests into UPDATE statements
-* PUT /v1/tables/ {"schema":SCHEMA, "table":TABLE, "COLNAME":COLVALUE, "set":["COLNAME1":COLVALUE1, ... "COLNAMEn":COLVALUEn}  → UPDATE SCHEMA.TABLE SET COLs = VALs, ... WHERE COLNAME = COLVALUE
+# Translate PATCH requests into UPDATE statements
+* PATCH /v1/tables/ {"schema":SCHEMA, "table":TABLE, "COLNAME":COLVALUE, "set":["COLNAME1":COLVALUE1, ... "COLNAMEn":COLVALUEn}  → UPDATE SCHEMA.TABLE SET COLs = VALs, ... WHERE COLNAME = COLVALUE
 
 ## RESULT  
 * If failure
