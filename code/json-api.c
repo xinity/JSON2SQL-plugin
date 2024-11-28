@@ -191,7 +191,7 @@ static int request_handler(void *cls, struct MHD_Connection *connection,
                            size_t *upload_data_size, void **con_cls) {
 
 if (strcmp(method, "GET") == 0) {
-char *response = handle_get_request(url, upload_data, upload_data_size);
+char *response = handle_get_request(url);
     if (response) {
         int ret = send_json_response(connection, response);
         free(response); // Free the allocated JSON string
