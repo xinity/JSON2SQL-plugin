@@ -5,6 +5,7 @@
 ## RESULT  
 * If failure  
  {
+  "request": "POST",
   "source": "tables",
   "schema": "schema_name",
   "table": "table_name",
@@ -15,6 +16,7 @@
 
 * If OK  
 {
+  "request":"POST",
   "source": "tables",
   "schema": "schema_name",
   "table": "table_name",
