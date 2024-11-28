@@ -39,6 +39,9 @@ const char *resources[] = {
 };
 const int num_resources = sizeof(resources) / sizeof(resources[0]);
 
+// defining the daemon structure
+static struct MHD_Daemon *daemon = NULL;
+
 // Function to check if the requested URL is a valid resource
 int is_valid_resource(const char *url) {
     for (int i = 0; i < num_resources; i++) {
@@ -50,8 +53,9 @@ int is_valid_resource(const char *url) {
 }
 
 // TODO : stick to the HTTP API return codes best practices
-// 400 : bad request - malformed request
-// 405 : method not allowed - method does not exist for ressource
+// 200 : MHD_HTTP_OK - OK
+// 400 : MHD_BAD_REQUEST - bad request - malformed request
+// 405 : MHD_METHOD_NOT_ALLOWED - method not allowed - method does not exist for ressource
 static int send_json_response(struct MHD_Connection *connection, const char *json_string) {
     struct MHD_Response *response = MHD_create_response_from_buffer(strlen(json_string), (void *)json_string, MHD_RESPMEM_MUST_COPY);
     MHD_add_response_header(response, "Content-Type", "application/json");
@@ -229,8 +233,6 @@ char *response = handle_delete_request(url);
 }
 
 static int json_api_plugin_init(void *p) {
-    struct MHD_Daemon *daemon;
-
     daemon = MHD_start_daemon(MHD_USE_INTERNAL_POLLING_THREAD | MHD_USE_DEBUG,
                               PORT, NULL, NULL,
                               &request_handler, NULL,
