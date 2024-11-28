@@ -165,7 +165,7 @@ static char* handle_post_request(const char *url) {
   return NULL;
 }
 
-static char* handle_put_request(const char *url) {
+static char* handle_patch_request(const char *url) {
 
   // request format is KO  
   return NULL;
@@ -201,8 +201,8 @@ char *response = handle_post_request(url);
     } else {
         return send_json_response(connection, "{\"error\": \"Invalid POST request\"}");
     }
-    } else if (strcmp(method, "PUT") == 0) {
-char *response = handle_put_request(url);
+    } else if (strcmp(method, "PATCH") == 0) {
+char *response = handle_patch_request(url);
     if (response) {
         int ret = send_json_response(connection, response);
         free(response); // Free the allocated JSON string
