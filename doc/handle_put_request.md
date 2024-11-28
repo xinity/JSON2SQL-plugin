@@ -1,22 +1,22 @@
 # Translate PUT requests into UPDATE statements
-* PUT /v1/tables/SCHEMA/TABLE/COLNAME/COLVALUE {"COLs":"VALs", ... }  → UPDATE SCHEMA.TABLE SET COLs = VALs, ... WHERE COLNAME = COLVALUE
+* PUT /v1/tables/ {"schema":SCHEMA, "table":TABLE, "COLNAME":COLVALUE, "set":["COLNAME1":COLVALUE1, ... "COLNAMEn":COLVALUEn}  → UPDATE SCHEMA.TABLE SET COLs = VALs, ... WHERE COLNAME = COLVALUE
 
 ## RESULT  
-* If failure  
- {
+* If failure
+{
+  "request":"PUT",
   "source": "tables",
   "schema": "schema_name",
   "table": "table_name",
-  ...
-  "status": " ",
+  "status": "MYSQL_ERROR_CODE",
   "rows": 0
 } 
 
 * If OK  
 {
+  "request":"PUT",
   "source": "tables",
   "schema": "schema_name",
   "table": "table_name",
-  "status": "OK",
-  "rows": n
+  "status": "OK"
 }
