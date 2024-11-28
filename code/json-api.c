@@ -1,14 +1,14 @@
 #include <ctype.h>
 #include <string.h>
 
-# MariaDB headers
+// MariaDB headers
 #include <mysql.h>
 #include <mysql/plugin.h>
 
-# micro httpd headers
+// micro httpd headers
 #include <microhttpd.h>
 
-# cJSON headers
+// cJSON headers
 #include <cjson/cJSON.h>
 
 #define MYSQL_DAEMON_PLUGIN  3  /* The daemon/raw plugin type */
