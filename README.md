@@ -14,12 +14,11 @@
 
 * [POST → INSERT](https://github.com/SylvainA77/JSON2SQL-plugin/blob/main/doc/handle_post_request.md)  
 
-* [PUT → UPDATE](https://github.com/SylvainA77/JSON2SQL-plugin/blob/main/doc/handle_put_request.md)  
+* [PATCH → UPDATE](https://github.com/SylvainA77/JSON2SQL-plugin/blob/main/doc/handle_patch_request.md)  
 
 * [DELETE → DELETE](https://github.com/SylvainA77/JSON2SQL-plugin/blob/main/doc/handle_delete_request.md)  
 
 ## Stored procedure calls
-* [GET]()  
 
 * [POST]()  
   
