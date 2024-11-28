@@ -8,7 +8,6 @@ set(CMAKE_C_STANDARD_REQUIRED True)
 # Include directories
 include_directories(/usr/include/)
 include_directories(/usr/include/cjson/)
-# include_directories(/usr/include/mysql/)
 include_directories(/usr/include/mysql/server/)
 
 # Add the plugin library
@@ -16,10 +15,8 @@ add_library(json2sql MODULE code/json-api.c)
 
 # Set output directory for the plugin
 set_target_properties(json2sql PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/plugin"
-)
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/plugin" )
 
 # Installation rules
 install(TARGETS json2sql
-    LIBRARY DESTINATION "/usr/lib64/mysql/plugin/" 
-)
+    LIBRARY DESTINATION "/usr/lib64/mysql/plugin/" )
