@@ -3,8 +3,8 @@
 #include <stdio.h>
 
 // MariaDB headers
-#include <mysql/mysql.h>
-#include <mysql/server/mysql/plugin.h>
+#include <mysql.h>
+#include <mysql/plugin.h>
 
 // micro httpd headers
 #include <microhttpd.h>
