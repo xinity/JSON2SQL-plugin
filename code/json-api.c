@@ -1,10 +1,17 @@
-#include <mysql.h>
 #include <ctype.h>
 #include <string.h>
+
+# MariaDB headers
+#include <mysql.h>
+#include <mysql/plugin.h>
+
+# micro httpd headers
 #include <microhttpd.h>
+
+# cJSON headers
 #include <cjson/cJSON.h>
 
-#define MYSQL_DAEMON_PLUGIN 3             /* The daemon/raw plugin type */
+#define MYSQL_DAEMON_PLUGIN  3  /* The daemon/raw plugin type */
 #define PLUGIN_NAME          "JSON2SQL"
 #define PLUGIN_AUTHOR        "Sylvain Arbaudie"
 #define PLUGIN_DESCRIPTION   "JSON API Plugin for MariaDB"
@@ -245,18 +252,18 @@ static int json_api_plugin_deinit(void *p) {
 // Plugin descriptor
 mysql_declare_plugin(json_api)
 {
-    MYSQL_DAEMON_PLUGIN,
-    &json_api_plugin,
-    PLUGIN_NAME,
-    PLUGIN_AUTHOR,
-    PLUGIN_DESCRIPTION,
-    PLUGIN_LICENSE_GPL,
-    json_api_plugin_init,
-    json_api_plugin_deinit,
-    0x0100,
-    NULL,
-    NULL,
-    NULL,
-    0
+    MYSQL_DAEMON_PLUGIN,      /* the plugin type (a MYSQL_XXX_PLUGIN value)     */
+    &json_api_plugin,         /* pointer to type-specific plugin descriptor     */
+    PLUGIN_NAME,              /* plugin name                                    */
+    PLUGIN_AUTHOR,            /* plugin author (for I_S.PLUGINS)                */
+    PLUGIN_DESCRIPTION,       /* general descriptive text (for I_S.PLUGINS)     */
+    PLUGIN_LICENSE_GPL,       /* the plugin license (PLUGIN_LICENSE_XXX)        */
+    json_api_plugin_init,     /* the function to invoke when plugin is loaded   */
+    json_api_plugin_deinit,   /* the function to invoke when plugin is unloaded */
+    0x0100,                   /* plugin version (for I_S.PLUGINS)               */
+    NULL,                     /* for status vars                                */
+    NULL,                     /* for system vars                                */
+    NULL,                     /* reserved for dependency checking               */
+    0                         /* flags for plugin                               */
 }
 mysql_declare_plugin_end;
