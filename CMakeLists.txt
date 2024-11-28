@@ -6,26 +6,13 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED True)
 
 # Include directories
-# include_directories(/usr/include/mysql/)
-# include_directories(/usr/include/cjson/)
-# include_directories(/usr/include/)
-# include_directories(/usr/include/mysql/server/)
+include_directories(/usr/include/)
+include_directories(/usr/include/cjson/)
+include_directories(/usr/include/mysql/)
+include_directories(/usr/include/mysql/server/)
 
 # Add the plugin library
 add_library(json2sql MODULE code/json-api.c)
-target_include_directories(json2sql PRIVATE
-    /usr/include/mysql/
-    /usr/include/mysql/server/
-    /usr/include/cjson/
-    /usr/include/
-)
-
-# Link libraries
-target_link_libraries(json2sql
-    /mysql
-    cJSON
-    microhttpd
-)
 
 # Set output directory for the plugin
 set_target_properties(json2sql PROPERTIES
