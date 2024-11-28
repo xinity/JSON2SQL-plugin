@@ -32,6 +32,7 @@ static struct st_mysql_daemon json_api_plugin = {
 // Defining the resources we want to check
 // TODO : ability to declare the list in a config file / system variable
 const char *resources[] = {
+    "/v1/",
     "/v1/tables/",
     "/v1/procedures/"
 };
