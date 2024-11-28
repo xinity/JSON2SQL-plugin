@@ -1,6 +1,6 @@
 # Translate API GET requests into SELECT statements  
   
-* GET /v1/tables/SCHEMA/TABLE/COLNAME/COLVALUE → SELECT * FROM SCHEMA.TABLE WHERE COLNAME = COLVALUE  
+* GET /v1/tables/ {"schema":SCHEMA, "table":TABLE, "column-name":COLNAME, "column-value":COLVALUE} → SELECT * FROM SCHEMA.TABLE WHERE COLNAME = COLVALUE  
 
 ## RESULT  
 
