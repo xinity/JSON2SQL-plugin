@@ -4,6 +4,7 @@
 #include <microhttpd.h>
 #include <cjson/cJSON.h>
 
+#define MYSQL_DAEMON_PLUGIN 3             /* The daemon/raw plugin type */
 #define PLUGIN_NAME          "JSON2SQL"
 #define PLUGIN_AUTHOR        "Sylvain Arbaudie"
 #define PLUGIN_DESCRIPTION   "JSON API Plugin for MariaDB"
