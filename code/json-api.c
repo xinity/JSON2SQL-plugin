@@ -1,5 +1,6 @@
 #include <ctype.h>
 #include <string.h>
+#include <stdio.h>
 
 // MariaDB headers
 #include <mysql.h>
