@@ -6,6 +6,7 @@
 
 * If 0 row found  
 {
+  "request":"GET",
   "source": "tables",
   "schema": "schema_name",
   "table": "table_name",
@@ -17,6 +18,7 @@
 
 * If 1+ rows found  
 {
+  "request":"GET",
   "source": "tables",
   "schema": "schema_name",
   "table": "table_name",
