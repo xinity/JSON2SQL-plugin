@@ -1,8 +1,22 @@
-# Translate API GET requests into SELECT statements  
+# Translate API GET requests into read statements  
   
-* GET /v1/tables/ {"schema":SCHEMA, "table":TABLE, "column-name":COLNAME, "column-value":COLVALUE} → SELECT * FROM SCHEMA.TABLE WHERE COLNAME = COLVALUE  
+* GET /v1/tables/:schema/:table/:colname/:colvalue → SELECT * FROM SCHEMA.TABLE WHERE COLNAME = COLVALUE
+
+* GET /v1/status/                                  → SHOW GLOBAL STATUS
+  
+* GET /v1/                                         → OK
+
+## Function declaration
+
+in [handle_get_request.h]() : static char* response handle_get_request(const char *url)  
+
+## Source file
+
+[handle_get_request.c]()
 
 ## RESULT  
+
+### TABLES resource
 
 * If 0 row found  
 {
@@ -39,4 +53,8 @@
     },
     ...
   ]
+
 }
+### STATUS resource
+
+### v1 resource
