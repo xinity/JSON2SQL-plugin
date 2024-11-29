@@ -10,7 +10,9 @@
 * handling DELETE/DELETE
 * securing the API with HTTPS
 * handling DB credentials through request body (token bearer ?)
-* handling simple joins for select
-* handling stored procedure calls
+* handling simple joins for select (really ?)
+* handling simple sort order
+* handling PUT/CALL stored procedure 
+* using global/local internal connexion
 
 No order of importance here.
