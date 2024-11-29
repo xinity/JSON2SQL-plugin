@@ -14,7 +14,7 @@ GET /v1/tables/:schema/:name/:colname/:colvalue
 
 ## Insert a new set of rows
 ```
-POST /v1/tables/:schema/:name
+POST /v1/tables/:schema/:name {"colname1":"colvalue1",...,"colnamen":"colvaluen"}
 ```
 
 ### Response
@@ -22,7 +22,7 @@ POST /v1/tables/:schema/:name
 
 ## Update a set of rows
 ```
-PATCH /v1/tables/:schema/:name
+PATCH /v1/tables/:schema/:name:colname/:colvalue {"colname1":"colvalue1",...,"colnamen":"colvaluen"}
 ```
 
 ### Response
