@@ -1,43 +1,17 @@
-#include <ctype.h>
-#include <string.h>
-#include <stdio.h>
+// global headers for the project 
+#include <global-json-api.h>
 
-// MariaDB headers
-#include <mysql.h>
-#include <mysql/plugin.h>
-
-// micro httpd headers
-#include <microhttpd.h>
-
-// cJSON headers
-#include <cjson/cJSON.h>
-
-// #define MYSQL_DAEMON_PLUGIN  3  /* The daemon/raw plugin type */
-#define PLUGIN_NAME          "json2sql"
-#define PLUGIN_AUTHOR        "Sylvain Arbaudie <arbaudie.it@gmail.com>"
-#define PLUGIN_DESCRIPTION   "JSON-to-SQL API Plugin for MariaDB"
-// #define PLUGIN_LICENSE_GPL   "GNU AGPL v3"
-
-// TODO : managing port via a system variable
-#define PORT 3000
-
-// TODO : managing credentials through JWTs and request body
-#define APIUSER "apiadmin"
-#define APIPASSWD "Ap1-4dmiN"
+// include method handling functions
+// #include <handle_get_request.h>
+#include <handle_put_request.h>
+// #include <handle_post_request.h>
+// #include <handle_patch_request.h>
+// #include <handle_delete_request.h>
 
 // Plugin declaration structure
 static struct st_mysql_daemon json_api_plugin = {
     MYSQL_DAEMON_INTERFACE_VERSION
 };
-
-// Defining the resources we want to check
-// TODO : ability to declare the list in a config file / system variable
-const char *resources[] = {
-    "/v1/",
-    "/v1/tables/",
-    "/v1/procedures/"
-};
-const int num_resources = sizeof(resources) / sizeof(resources[0]);
 
 // defining the daemon structure
 static struct MHD_Daemon *listener = NULL;
