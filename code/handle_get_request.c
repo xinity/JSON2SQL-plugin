@@ -1,14 +1,14 @@
 //include
-#include <global-json-api.h>
+#include "global-json-api.h"
 
 static char* handle_get_request(const char *url) {
   // initializing the variables 
   char query[512]="";
 
-    // initialize the JSON answer
-    cJSON *json = cJSON_CreateObject();
-    
-    if (sscanf(url, "/v1/tables/%64[^/]/%64[^/]/%64[^/]/%64s", schema, table, colname, colvalue) == 4) {   
+  // initialize the JSON answer
+  cJSON *json = cJSON_CreateObject();
+  
+  if (sscanf(url, "/v1/tables/%64[^/]/%64[^/]/%64[^/]/%64s", schema, table, colname, colvalue) == 4) {   
         // Here query database
         snprintf(query, sizeof(query), "SELECT * FROM %s.%s WHERE %s = '%s'", schema, table, colname, colvalue);
         cJSON_AddStringToObject(json, "source", "tables");
@@ -16,14 +16,10 @@ static char* handle_get_request(const char *url) {
         cJSON_AddStringToObject(json, "table", table);
         cJSON_AddStringToObject(json, "column-name", colname);
         cJSON_AddStringToObject(json, "column-value", colvalue);
-//    } else if (sscanf(url, "/v1/procedures/%64[^/]/%64s", schema, procname) == 2) { 
-//        // Here query database
-//        snprintf(query, sizeof(query), "'use %s; call %s()'", schema, procname);
-//        // initialize the JSON answer
-//        cJSON *json = cJSON_CreateObject();
-//        cJSON_AddStringToObject(json, "source", "procedure");
-//        cJSON_AddStringToObject(json, "schema", schema);
-//        cJSON_AddStringToObject(json, "procname", procname);
+//    } else if (strcmp(url, "/v1/status/") == 0) { 
+//        SHOW GLOBAL STATUS
+//    } else if (strcmp(url, "/v1/") == 0) {
+//        HEALTHCHECK
     }
 
     if (query[0] != '\0') {
