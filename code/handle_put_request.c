@@ -9,12 +9,12 @@ static char* handle_put_request(const char *url, const char *request_body, size_
   cJSON *json = cJSON_CreateObject();
   
   if (sscanf(url, "/v1/procedures/%64[^/]/%64s", schema, procname) == 2) {  
-        // TODO : check that ressource is exposed    
+        // TODO : check that ressource is exposed  
         if(!is_exposed(url))
         {
            fprintf(stderr, "resource not exposed\n");
-           cJSON_AddStringToObject(json, "status", "RESOURCE not exspoed");
-           cJSON_AddStringToObject(json, "code","");
+           cJSON_AddStringToObject(json, "status", "RESOURCE not exposed");
+           cJSON_AddStringToObject(json, "code","404");
           // clean exit procedure         
           char *json_string = cJSON_PrintUnformatted(json);
           cJSON_Delete(json);
@@ -42,7 +42,7 @@ static char* handle_put_request(const char *url, const char *request_body, size_
            fprintf(stderr, "mysql_query() failed\n");
            mysql_close(connection);
            cJSON_AddStringToObject(json, "status", "QUERY failed");
-           cJSON_AddStringToObject(json, "code","");
+           cJSON_AddStringToObject(json, "code","403");
           // clean exit procedure         
           char *json_string = cJSON_PrintUnformatted(json);
           cJSON_Delete(json);
@@ -103,7 +103,7 @@ static char* handle_put_request(const char *url, const char *request_body, size_
     }
   // request format is KO
   cJSON_AddNumberToObject(json, "error", "Invalid PUT request");
-  cJSON_AddStringToObject(json, "code","200");
+  cJSON_AddStringToObject(json, "code","400");
   // clean exit procedure
   char *json_string = cJSON_PrintUnformatted(json);
   cJSON_Delete(json);
