@@ -1,13 +1,6 @@
 // global headers for the project 
 #include "global-json-api.h"
 
-// include method handling functions
-// #include "handle_get_request.h"
-// #include "handle_put_request.h"
-// #include "handle_post_request.h"
-// #include "handle_patch_request.h"
-// #include "handle_delete_request.h"
-
 // Plugin declaration structure
 static struct st_mysql_daemon json_api_plugin = {
     MYSQL_DAEMON_INTERFACE_VERSION
