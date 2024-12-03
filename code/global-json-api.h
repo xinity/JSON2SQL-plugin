@@ -32,6 +32,9 @@ extern static MYSQL *global_mysql;
 #define PLUGIN_AUTHOR        "Sylvain Arbaudie <arbaudie.it@gmail.com>"
 #define PLUGIN_DESCRIPTION   "JSON-to-SQL API Plugin for MariaDB"
 
+// ease the use of mysql_real_query
+#define STRING_WITH_LEN(X) (X), ((size_t) (sizeof(X) - 1))
+
 // TODO : managing port via a system variable
 #define PORT 3000
 
