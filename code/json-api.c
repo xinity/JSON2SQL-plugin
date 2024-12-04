@@ -1,6 +1,9 @@
 // global headers for the project 
 #include "global-json-api.h"
 
+// micro httpd headers
+#include <microhttpd.h>
+
 // request handlers headers
 #include "handle_get_request.h"
 #include "handle_post_request.h"
