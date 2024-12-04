@@ -8,7 +8,7 @@ The goal is to provide an easy way to map simple DML statements and stored proce
 - **Release**: pre ALPHA
 - **Current Version**: 0.0.1
 - **Status**: Active development
-- **Last Updated**: 20241129 - November 29, 2024
+- **Last Updated**: 20241204 - December 04, 2024
 
 ## Direct tables access
 
