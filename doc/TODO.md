@@ -9,7 +9,7 @@
 - [ ] handling PATCH/UPDATE
 - [x] handling DELETE/DELETE
 - [ ] securing the API with HTTPS
-- [ ] handling DB credentials through request body (token bearer ?)
+- [ ] handling creddentials with JWT (lib to be choosen)
 - [ ] handling simple joins for select (really ?)
 - [ ] handling simple sort order
 - [x] handling PUT/CALL stored procedure 
