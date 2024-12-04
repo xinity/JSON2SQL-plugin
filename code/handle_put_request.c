@@ -10,16 +10,16 @@ static char* handle_put_request(const char *url, const char *request_body, size_
   
   if (sscanf(url, "/v1/procedures/%64[^/]/%64s", schema, procname) == 2) {  
         // TODO : check that ressource is exposed  
-        if(!is_exposed(url))
-        {
-           fprintf(stderr, "resource not exposed\n");
-           cJSON_AddStringToObject(json, "status", "RESOURCE not exposed");
-           cJSON_AddStringToObject(json, "code","404");
-          // clean exit procedure         
-          char *json_string = cJSON_PrintUnformatted(json);
-          cJSON_Delete(json);
-          return json_string; // Caller is responsible for freeing this memory
-        }
+//        if(!is_exposed(url))
+//        {
+//           fprintf(stderr, "resource not exposed\n");
+//           cJSON_AddStringToObject(json, "status", "RESOURCE not exposed");
+//           cJSON_AddStringToObject(json, "code","404");
+//          // clean exit procedure         
+//          char *json_string = cJSON_PrintUnformatted(json);
+//          cJSON_Delete(json);
+//          return json_string; // Caller is responsible for freeing this memory
+//        }
         // Here query database
         snprintf(query, sizeof(query), "'use %s; CALL %s('", schema, procname);
         // looping over request body to extract 
