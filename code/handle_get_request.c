@@ -39,7 +39,7 @@ static char* handle_get_request(const char *url) {
     } else {
 // request format is KO
   cJSON_AddNumberToObject(json, "error", "Invalid GET request");
-  cJSON_AddStringToObject(json, "code", HTTP_BAD_REQUEST);
+  cJSON_AddStringToObject(json, "httpcode", HTTP_BAD_REQUEST);
 // clean exit procedure w/ housekeeping
   char *json_string = cJSON_PrintUnformatted(json);
   cJSON_Delete(json);
@@ -50,8 +50,8 @@ static char* handle_get_request(const char *url) {
         if (mysql_real_connect_local(connection) == NULL) { 
           fprintf(stderr, "mysql_init/mysql_real_connect_local failed\n");
           cJSON_AddStringToObject(json, "status", "CONNECTION failed");
-          cJSON_AddNumberToObject(json, "mysqlcode",mysql_errno(connection));
-          cJSON_AddNumberToObject(json, "httpcode","");
+          cJSON_AddNumberToObject(json, "mariadbcode", mysql_errno(connection));
+          cJSON_AddNumberToObject(json, "httpcode", HTTP_INTERNAL_SERVER_ERROR);
           // clean exit procedure         
           char *json_string = cJSON_PrintUnformatted(json);
           cJSON_Delete(json);
@@ -62,7 +62,7 @@ static char* handle_get_request(const char *url) {
           fprintf(stderr, "mysql_query() failed\n");
           cJSON_AddStringToObject(json, "status", "QUERY failed");
           cJSON_AddNumberToObject(json, "mariadbcode",mysql_errno(connection));
-          cJSON_AddNumberToObject(json, "httpcode", HTTP_FORBIDDEN);
+          cJSON_AddNumberToObject(json, "httpcode", HTTP_INTERNAL_SERVER_ERROR);
           // clean exit procedure         
           char *json_string = cJSON_PrintUnformatted(json);
           mysql_close(connection);
@@ -74,18 +74,18 @@ static char* handle_get_request(const char *url) {
        if (resultset == NULL) {
           fprintf(stderr, "mysql_store_result() failed\n");
           cJSON_AddStringToObject(json, "status", "RESULT failed");
-          cJSON_AddNumberToObject(json, "code","");
+          cJSON_AddNumberToObject(json, "mariadbcode",mysql_errno(connection));
+          cJSON_AddNumberToObject(json, "httpcode", HTTP_INTERNAL_SERVER_ERROR);
 // clean exit procedure w/ housekeeping         
           char *json_string = cJSON_PrintUnformatted(json);
           cJSON_Delete(json);
           mysql_close(connection);
           mysql_free_result(resultset);
           return json_string; // Caller is responsible for freeing this memory
-       }
+       } else {
 // resulset to json translation
-        if (mysql_num_rows(resultset) > 0) {
            cJSON_AddStringToObject(json, "status", "OK");
-           cJSON_AddNumberToObject(json, "rows", (double)num_rows);
+           cJSON_AddNumberToObject(json, "rows", mysql_num_rows(resultset));
            // Create a JSON array to hold all rows
            cJSON *rows_array = cJSON_CreateArray();
            unsigned int num_fields = mysql_num_fields(resultset);
@@ -113,7 +113,8 @@ static char* handle_get_request(const char *url) {
         } else {
           cJSON_AddStringToObject(json, "status", "NO DATA FOUND");
           cJSON_AddNumberToObject(json, "rows", 0);
-          cJSON_AddNumberToObject(json, "code", HTTP_OK);
+          cJSON_AddNumberToObject(json, "mariadbcode", 0); 
+          cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
 // clean exit procedure w/ housekeeping
           char *json_string = cJSON_PrintUnformatted(json);
           cJSON_Delete(json);
