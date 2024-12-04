@@ -32,6 +32,16 @@ extern static MYSQL *global_mysql;
 #define PLUGIN_AUTHOR        "Sylvain Arbaudie <arbaudie.it@gmail.com>"
 #define PLUGIN_DESCRIPTION   "JSON-to-SQL API Plugin for MariaDB"
 
+// defining use HTTP response codes
+#define HTTP_OK                     200
+#define HTTP_INTERNAL_ERROR         500
+#define HTTP_BAD_REQUEST            400
+#define HTTP_UNAUTHORIZED           401
+#define HTTP_FORBIDDEN              403
+#define HTTP_NOT_FOUND              404
+#define HTTP_METHOD_NOT_ALLOWED     405
+#define HTTP_UNSUPPORTED_MEDIA_TYPE 415
+
 // ease the use of mysql_real_query
 #define STRING_WITH_LEN(X) (X), ((size_t) (sizeof(X) - 1))
 
