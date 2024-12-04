@@ -19,13 +19,11 @@ static char* handle_put_request(const char *url, const char *request_body, size_
   if (sscanf(url, "/v1/procedures/%64[^/]/%64s", schema, procname) == 2) {  
     // initializing the variables 
     char query[512]="";
-
-    // Here query database
+// Here query database
     snprintf(query, sizeof(query), "'use %s; CALL %s('", schema, procname);
-    // looping over request body to extract 
-//  cJSON_AddStringToObject(json, "source", "tables");
-//  cJSON_AddStringToObject(json, "schema", schema);
-//  cJSON_AddStringToObject(json, "procname", procname);
+// looping over request body to extract 
+// CODE TO BE WRITTEN
+      
 // we establish internal local connexion
         MYSQL *connection = mysql_init(NULL);
         if (mysql_real_connect_local(connection) == NULL) { 
@@ -62,11 +60,10 @@ static char* handle_put_request(const char *url, const char *request_body, size_
           mysql_close(connection);
           mysql_free_result(resultset);
           return json_string; // Caller is responsible for freeing this memory
-       }
-// resulset to json translation
-        if (mysql_num_rows(resultset) > 0) {
+       } else {
+  // resulset to json translation
            cJSON_AddStringToObject(json, "status", "OK");
-           cJSON_AddNumberToObject(json, "rows", (double)num_rows);
+           cJSON_AddNumberToObject(json, "rows", mysql_num_rows(resultset));
            // Create a JSON array to hold all rows
            cJSON *rows_array = cJSON_CreateArray();
            unsigned int num_fields = mysql_num_fields(resultset);
