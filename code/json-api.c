@@ -22,7 +22,7 @@ int is_valid_resource(const char *url) {
 static int send_json_response(struct MHD_Connection *connection, const char *json_string) {
     struct MHD_Response *response = MHD_create_response_from_buffer(strlen(json_string), (void *)json_string, MHD_RESPMEM_MUST_COPY);
     MHD_add_response_header(response, "Content-Type", "application/json");
-// get http return code from json
+// extract http return code from json_string
     cJSON *json = cJSON_Parse(json_string);
     cJSON *field = cJSON_GetObjectItemCaseSensitive(json, "httpcode");
     unsigned int http_code = field->valueint; 
