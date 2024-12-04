@@ -22,9 +22,6 @@
 extern const char *resources[] ;
 extern const int num_resources;
 
-// global connexion : no creds, full privileges
-extern static MYSQL *global_mysql;
-
 #define PLUGIN_NAME          "json2sql"
 #define PLUGIN_AUTHOR        "Sylvain Arbaudie <arbaudie.it@gmail.com>"
 #define PLUGIN_DESCRIPTION   "simple JSON-to-SQL API Plugin for MariaDB"
