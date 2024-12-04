@@ -20,25 +20,17 @@ in [handle_get_request.h]() : static char* response handle_get_request(const cha
 
 * If 0 row found  
 {
-  "request":"GET",
-  "source": "tables",
-  "schema": "schema_name",
-  "table": "table_name",
-  "pkname": "primary_key_name",
-  "pkvalue": "primary_key_value",
   "status": "NO DATA FOUND",
-  "rows": 0
+  "rows": 0,
+  "mariadbcode": 0,
+  "httpcode": 200
 }
 
 * If 1+ rows found  
 {
-  "request":"GET",
-  "source": "tables",
-  "schema": "schema_name",
-  "table": "table_name",
-  "pkname": "primary_key_name",
-  "pkvalue": "primary_key_value",
   "status": "OK",
+  "mariadbcode": 0,
+  "httpcode": 200,
   "rows": 3,
   "data": [
     {
@@ -58,3 +50,7 @@ in [handle_get_request.h]() : static char* response handle_get_request(const cha
 ### STATUS resource
 
 ### v1 resource
+{
+  "status": "OK",
+  "httpcode": 200
+}
