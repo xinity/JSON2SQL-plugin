@@ -101,8 +101,8 @@ static char* handle_put_request(const char *url, const char *request_body, size_
         }
     }
 // request format is KO
-  cJSON_AddNumberToObject(json, "error", "Invalid PUT request");
-  cJSON_AddStringToObject(json, "code", HTTP_BAD_REQUEST);
+  cJSON_AddStringToObject(json, "error", "Invalid PUT request");
+  cJSON_AddNumberToObject(json, "httpcode", HTTP_BAD_REQUEST);
 // clean exit procedure w/ housekeeping
   char *json_string = cJSON_PrintUnformatted(json);
   cJSON_Delete(json);
