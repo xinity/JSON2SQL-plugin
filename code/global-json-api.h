@@ -13,9 +13,6 @@
 #include <mysql.h>
 #include <mysql/plugin.h>
 
-// micro httpd headers
-#include <microhttpd.h>
-
 // cJSON headers
 #include <cjson/cJSON.h>
 
