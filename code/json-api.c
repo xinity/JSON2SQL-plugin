@@ -19,8 +19,14 @@ static struct st_mysql_daemon json_api_plugin = {
 // defining the daemon structure
 static struct MHD_Daemon *listener = NULL;
 
+
 // Function to check if the requested URL is a valid resource
-int is_valid_resource(const char *url) {
+// resource format : 
+// /v1/
+// /v1/status/
+// /v1/tables/SCHEMA/TABLE/*
+// /v1/procedures/SCHEMA/PROCNAME/*
+int is_exposed_resource(const char *url) {
     for (int i = 0; i < num_resources; i++) {
         if (strcmp(url, resources[i]) == 0) {
             return 1; // Valid resource found
