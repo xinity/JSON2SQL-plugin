@@ -22,6 +22,8 @@ static struct MHD_Daemon *listener = NULL;
 // Function to check if the requested URL is a valid resource
 // resource format : 
 // /v1/
+// /v1/registration/
+// /v1/subscription/
 // /v1/status/
 // /v1/tables/%
 // /v1/tables/SCHEMA/%
