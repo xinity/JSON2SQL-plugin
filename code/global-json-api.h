@@ -8,6 +8,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 // MariaDB headers
 #include <mysql.h>
@@ -30,7 +31,7 @@ extern int is_exposed_resource(const char *url);
 #define PLUGIN_DESCRIPTION   "simple JSON-to-SQL API Plugin for MariaDB"
 
 // are functions corked or not
-#DEFINE CORK                        1
+bool CORK = true;
 
 // defining use HTTP response codes
 #define HTTP_OK                     200
