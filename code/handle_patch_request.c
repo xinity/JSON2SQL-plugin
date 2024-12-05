@@ -4,6 +4,16 @@
 static char* handle_patch_request(const char *url, const char *upload_data, size_t *upload_data_size) {
 // initialize the JSON answer
     cJSON *json = cJSON_CreateObject(); 
+
+#if PATCHCORK == 1
+    cJSON_AddStringToObject(json, "method", "PATCH");
+    cJSON_AddStringToObject(json, "url", url);
+    cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
+    char *json_string = cJSON_PrintUnformatted(json);
+    cJSON_Delete(json);
+    return json_string; // Caller is responsible for freeing this memory
+#endif
+    
 // local variables
     char schema[64];  
     char table[64];
