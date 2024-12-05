@@ -11,7 +11,7 @@ static char* handle_get_request(const char *url) {
         char *json_string = cJSON_PrintUnformatted(json);
         cJSON_Delete(json);
         return json_string; // Caller is responsible for freeing this memory
-#elif GETCORK == 0
+#endif
     
 // initializing the variables 
     char schema[64];  
@@ -120,5 +120,4 @@ static char* handle_get_request(const char *url) {
           mysql_free_result(resultset);
           return json_string; // Caller is responsible for freeing this memory
         }
-#endif
 }
