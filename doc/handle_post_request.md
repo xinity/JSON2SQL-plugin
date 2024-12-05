@@ -16,17 +16,17 @@
 
 ## RESULT  
 * If failure  
- {
-  "status": "ERR_MSG",
-  "mariadbcode": "MYSQL_ERROR_CODE",
-  "httpcode": 400/500,
-  "rows": 0
+ {  
+  "status": "ERR_MSG",  
+  "mariadbcode": "MYSQL_ERROR_CODE",  
+  "httpcode": 400/500,  
+  "rows": 0  
 } 
 
 * If OK  
-{
-  "status": "OK",
-  "mariadbcode": 0,
-  "httpcode": 200,
-  "rows": n
-}
+{  
+  "status": "OK",  
+  "mariadbcode": 0,  
+  "httpcode": 200,  
+  "rows": n  
+}  
