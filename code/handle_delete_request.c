@@ -38,11 +38,11 @@ static char* handle_delete_request(const char *url) {
         }
 // execute the query      
         if (mysql_real_query(connection, STRING_WITH_LEN(query))) {
-          fprintf(stderr, "mysql_query() failed\n");
+          fprintf(stderr, "mysql_query failed\n");
           cJSON_AddStringToObject(json, "status", "QUERY failed");
           cJSON_AddNumberToObject(json, "mariadbcode", mysql_errno(connection));
           cJSON_AddNumberToObject(json, "httpcode", HTTP_INTERNAL_SERVER_ERROR);
-          // clean exit procedure         
+// clean exit procedure         
           char *json_string = cJSON_PrintUnformatted(json);
           mysql_close(connection);
           cJSON_Delete(json);
@@ -50,8 +50,8 @@ static char* handle_delete_request(const char *url) {
         } else 
         {
 // resulset to json translation
-           cJSON_AddStringToObject(json, "status", "OK");
-           cJSON_AddNumberToObject(json, "rows", mysql_affected_rows(resultset));
+          cJSON_AddStringToObject(json, "status", "OK");
+          cJSON_AddNumberToObject(json, "deleted rows", mysql_affected_rows(resultset));
           cJSON_AddNumberToObject(json, "mariadbcode", mysql_errno(connection));
           cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
 // clean exit procedure w/ housekeeping
@@ -63,8 +63,8 @@ static char* handle_delete_request(const char *url) {
         }
     }
 // request format is KO
-  cJSON_AddStringToObject(json, "error", "Invalid DELETE request");
-  cJSON_AddNumberToObject(json, "code", HTTP_BAD_REQUEST);
+  cJSON_AddStringToObject(json, "status", "Invalid DELETE request");
+  cJSON_AddNumberToObject(json, "httpcode", HTTP_BAD_REQUEST);
 // clean exit procedure w/ housekeeping
   char *json_string = cJSON_PrintUnformatted(json);
   cJSON_Delete(json);
