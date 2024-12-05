@@ -4,6 +4,16 @@
 static char* handle_put_request(const char *url, const char *request_body, size_t *request_body_size) {
 // initialize the JSON answer
     cJSON *json = cJSON_CreateObject();  
+
+#if PUTCORK == 1
+    cJSON_AddStringToObject(json, "method", "PUT");
+    cJSON_AddStringToObject(json, "url", url);
+    cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
+    char *json_string = cJSON_PrintUnformatted(json);
+    cJSON_Delete(json);
+    return json_string; // Caller is responsible for freeing this memory
+#endif
+    
 // check request format, parameter extraction & statement exec
   if (sscanf(url, "/v1/procedures/%64[^/]/%64s", schema, procname) == 2) {  
     // initializing the variables 
