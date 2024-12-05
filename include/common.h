@@ -23,6 +23,9 @@
 extern const char *resources[] ;
 extern const int num_resources;
 
+// grant verification
+// extern int has_required_privilege(const char *user);
+
 // check for resource exposition
 extern int is_exposed_resource(const char *url);
 
@@ -47,6 +50,19 @@ extern int is_exposed_resource(const char *url);
 #define HTTP_METHOD_NOT_ALLOWED     405
 #define HTTP_UNSUPPORTED_MEDIA_TYPE 415
 
+// methodd <=> privilege translation
+#define GET    'select'
+#define PUT    'execute'
+#define POST   'insert'
+#define PATCH  'update'
+#define DELETE 'delete'
+
+// standard exposed resources
+#define HEALTHCHECK  ''/v1/'
+#define STATUS        '/v1/status/'
+#define SUBSCRIPTION  '/v1/subscription/'
+#define RESOURCES     '/v1/resources/'
+
 // ease the use of mysql_real_query
 #define STRING_WITH_LEN(X) (X), ((size_t) (sizeof(X) - 1))
 
@@ -55,7 +71,6 @@ extern int is_exposed_resource(const char *url);
 #define ADDRESS "0.0.0.0"
 
 // TODO : managing credentials through JWTs and request body
-#define APIUSER "apiadmin"
-#define APIPASSWD "Ap1-4dmiN"
+#define APIUSER 'apiadmin'
 
 #endif // GLOBALS_H
