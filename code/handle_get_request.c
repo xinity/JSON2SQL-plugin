@@ -4,13 +4,14 @@
 static char* handle_get_request(const char *url) {
 // initialize the JSON answer
     cJSON *json = cJSON_CreateObject();
+
 #if GETCORK == 1
         cJSON_AddStringToObject(json, "url", url);
         cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
         char *json_string = cJSON_PrintUnformatted(json);
         cJSON_Delete(json);
         return json_string; // Caller is responsible for freeing this memory
-#endif
+#elif GETCORK == 0
     
 // initializing the variables 
     char schema[64];  
@@ -119,4 +120,5 @@ static char* handle_get_request(const char *url) {
           mysql_free_result(resultset);
           return json_string; // Caller is responsible for freeing this memory
         }
+#endif
 }
