@@ -4,6 +4,15 @@
 static char* handle_post_request(const char *url, const char *upload_data, size_t *upload_data_size) {
 // initialize the JSON answer
     cJSON *json = cJSON_CreateObject();  
+#if POSTCORK == 1
+    cJSON_AddStringToObject(json, "method", "POST");
+    cJSON_AddStringToObject(json, "url", url);
+    cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
+    char *json_string = cJSON_PrintUnformatted(json);
+    cJSON_Delete(json);
+    return json_string; // Caller is responsible for freeing this memory
+#endif
+    
 // check request format, parameter extraction & statement exec
   if (sscanf(url, "/v1/tables/%64[^/]/%64s", schema, table) == 2) {  
     // initializing the variables 
