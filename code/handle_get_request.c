@@ -4,7 +4,7 @@
 static char* handle_get_request(const char *url) {
 // initialize the JSON answer
     cJSON *json = cJSON_CreateObject();
-#ifdef GETCORK
+#if GETCORK == 1
         cJSON_AddStringToObject(json, "url", url);
         cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
         char *json_string = cJSON_PrintUnformatted(json);
