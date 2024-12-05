@@ -29,32 +29,6 @@ Here we discuss the various choices made during implementation of this API
 * MariaDB plugin
   * Why : it has been designed as an easy & simple way to consume datas in a single database. so integrating tightly with thze database, allows for the best performance
 
-## message replication scheme
-### Asynchronous Replication
-* Design Philosophy: Asynchronous replication allows replicas to request updates from the primary server without waiting for confirmation that the changes have been applied. This method prioritizes performance over immediate consistency.
-* Features:
-  * Event Propagation: The primary server logs changes in a binary log, which replicas read and apply at their own pace. This can lead to replication lag.
-  * Performance: High throughput due to non-blocking nature; replicas can be located far from the primary without significant performance degradation.
-  * Data Consistency: There is a risk of data inconsistency between the primary and replicas, especially during network failures or delays.
-* Use Case: Suitable for scenarios where eventual consistency is acceptable, such as reporting systems or data warehousing where real-time accuracy is not critical 25.
-### Semi-Synchronous Replication
-* Design Philosophy: Semi-synchronous replication is a middle ground between asynchronous and synchronous replication. It requires at least one replica to acknowledge receipt of updates before the primary considers the transaction complete.
-* Features:
-  * Acknowledgment Requirement: The primary waits for acknowledgment from at least one replica after it has written the changes to its relay log but before committing the transaction.
-  * Performance Trade-off: While it improves data integrity compared to asynchronous replication, it introduces some latency due to the acknowledgment round-trip time.
-  * Data Consistency: Provides better data consistency than asynchronous replication since it ensures that at least one replica has received the update before proceeding.
-* Use Case: Ideal for applications that require a balance between performance and data integrity, such as transactional systems where some delay is acceptable but data consistency is still important 2.
-### Galera Replication
-* Design Philosophy: Galera replication employs synchronous multi-master replication, ensuring that all nodes in the cluster apply changes simultaneously. This mechanism guarantees strong consistency across all nodes.
-* Features:
-  * Synchronous Updates: All nodes must acknowledge transactions before they are committed, ensuring that all nodes have the same data at any given time.
-  * High Availability: Designed for high availability and fault tolerance; if one node fails, others can continue processing without data loss.
-  * Performance Considerations: While it provides strong consistency, it may introduce latency due to the need for all nodes to confirm transactions before proceeding.
-* Use Case: Best suited for high-availability applications that require immediate consistency across multiple nodes, such as online transaction processing (OLTP) systems
-### Decision : 
-* Asynchronous replication
-  * Why : built-in, asynchronous, non-blocking, robust, latency independant event replication
-
 ## C vs Go vs RUST vs js
 ### C
 * Design Philosophy: C is a low-level, procedural programming language that provides direct access to memory and system resources. It is designed for efficiency and control, making it suitable for systems programming.
@@ -125,8 +99,8 @@ Here we discuss the various choices made during implementation of this API
   * Extensive Documentation: Well-documented with examples that simplify the integration process.
 * Use Case: Suitable for developers looking to create robust web applications or services that require extensive features and ease of integration.
 ### Decision : 
-* libmicrohttpd
-  * Why : it seemed the more lightweight library for a mariadb plugin, with reasonable ease of use. might be replaced by mongoose if adding  https & JWT is too complicated using microhttpd
+* libmicrohttpd => civetwb
+  * Why : mhd waqs the most lightweight library for a mariadb plugin, with reasonable ease of use but it does not natively support https, making it a no go for a long run.
   
 ## JSON
 ### cJSON
