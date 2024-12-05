@@ -3,7 +3,15 @@
 
 static char* handle_get_request(const char *url) {
 // initialize the JSON answer
-    cJSON *json = cJSON_CreateObject();  
+    cJSON *json = cJSON_CreateObject();
+#ifdef GETCORK
+        cJSON_AddStringToObject(json, "url", url);
+        cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
+        char *json_string = cJSON_PrintUnformatted(json);
+        cJSON_Delete(json);
+        return json_string; // Caller is responsible for freeing this memory
+#endif
+    
 // initializing the variables 
     char schema[64];  
     char table[64];
