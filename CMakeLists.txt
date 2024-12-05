@@ -6,16 +6,20 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED True)
 
 # Include directories
+include_directories(include)  # Specify the include directory for header files
 include_directories(/usr/include/)
 include_directories(/usr/include/cjson/)
 include_directories(/usr/include/mysql/server/)
 
+# Optionally, if you want to include all .c files in the code directory:
+# file(GLOB SOURCES "code/*.c")
+
 # Add the plugin library
-add_library(json2sql MODULE code/json-api.c)
+add_library(json2sql MODULE ${SOURCES})
 
 # Set output directory for the plugin
 set_target_properties(json2sql PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY "/app/plugin" )
+    LIBRARY_OUTPUT_DIRECTORY "/app/plugin/" )
 
 # Installation rules
 install(TARGETS json2sql
