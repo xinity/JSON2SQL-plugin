@@ -13,7 +13,7 @@ static char* handle_delete_request(const char *url) {
     char colname[64];
     char colvalue[64];
 // building query
-    snprintf(query, sizeof(query), "DELETE FROM %s.%s WHERE %s = '%s'", schema, table, colname, colvalue);
+    snprintf(query, sizeof(query), "'DELETE FROM %s.%s WHERE %s = %s'", schema, table, colname, colvalue);
 // establish internal local connexion
         MYSQL *connection = mysql_init(NULL);
         if (mysql_real_connect_local(connection) == NULL) { 
