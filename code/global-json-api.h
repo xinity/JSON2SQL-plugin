@@ -44,6 +44,7 @@ extern int is_exposed_resource(const char *url);
 
 // TODO : managing port via a system variable
 #define PORT 3000
+#define ADDRESS "0.0.0.0"
 
 // TODO : managing credentials through JWTs and request body
 #define APIUSER "apiadmin"
