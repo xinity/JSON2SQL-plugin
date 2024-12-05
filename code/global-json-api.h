@@ -29,6 +29,9 @@ extern int is_exposed_resource(const char *url);
 #define PLUGIN_AUTHOR        "Sylvain Arbaudie <arbaudie.it@gmail.com>"
 #define PLUGIN_DESCRIPTION   "simple JSON-to-SQL API Plugin for MariaDB"
 
+// are functions corked or not
+#DEFINE CORK                        1
+
 // defining use HTTP response codes
 #define HTTP_OK                     200
 #define HTTP_INTERNAL_SERVER_ERROR  500
