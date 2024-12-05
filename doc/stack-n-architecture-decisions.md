@@ -99,8 +99,8 @@ Here we discuss the various choices made during implementation of this API
   * Extensive Documentation: Well-documented with examples that simplify the integration process.
 * Use Case: Suitable for developers looking to create robust web applications or services that require extensive features and ease of integration.
 ### Decision : 
-* libmicrohttpd => civetwb
-  * Why : mhd waqs the most lightweight library for a mariadb plugin, with reasonable ease of use but it does not natively support https, making it a no go for a long run.
+* libmicrohttpd
+  * Why : mhd waqs the most lightweight library for a mariadb plugin, with reasonable ease of use but it does not natively support https so change might be incoming
   
 ## JSON
 ### cJSON
