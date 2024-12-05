@@ -5,6 +5,7 @@ static char* handle_post_request(const char *url, const char *upload_data, size_
 // initialize the JSON answer
     cJSON *json = cJSON_CreateObject();  
 #if POSTCORK == 1
+    cJSON_AddStringToObject(json, "status", "CORK");
     cJSON_AddStringToObject(json, "method", "POST");
     cJSON_AddStringToObject(json, "url", url);
     cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
@@ -51,7 +52,7 @@ static char* handle_post_request(const char *url, const char *upload_data, size_
         {
 // resulset to json translation
            cJSON_AddStringToObject(json, "status", "OK");
-           cJSON_AddNumberToObject(json, "rows", (int)mysql_affected_rows(resultset));
+           cJSON_AddNumberToObject(json, "inserted rows", (int)mysql_affected_rows(resultset));
           cJSON_AddNumberToObject(json, "mariadbcode", mysql_errno(connection));
           cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
 // clean exit procedure w/ housekeeping
@@ -63,8 +64,8 @@ static char* handle_post_request(const char *url, const char *upload_data, size_
         }
     }
 // request format is KO
-  cJSON_AddStringToObject(json, "error", "Invalid POST request");
-  cJSON_AddNumberToObject(json, "code", HTTP_BAD_REQUEST);
+  cJSON_AddStringToObject(json, "status", "Invalid POST request");
+  cJSON_AddNumberToObject(json, "httpcode", HTTP_BAD_REQUEST);
 // clean exit procedure w/ housekeeping
   char *json_string = cJSON_PrintUnformatted(json);
   cJSON_Delete(json);
