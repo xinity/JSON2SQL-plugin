@@ -6,6 +6,7 @@ static char* handle_put_request(const char *url, const char *request_body, size_
     cJSON *json = cJSON_CreateObject();  
 
 #if PUTCORK == 1
+    cJSON_AddStringToObject(json, "status", "CORK");
     cJSON_AddStringToObject(json, "method", "PUT");
     cJSON_AddStringToObject(json, "url", url);
     cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
@@ -90,7 +91,7 @@ static char* handle_put_request(const char *url, const char *request_body, size_
         } else {
           cJSON_AddStringToObject(json, "status", "NO DATA FOUND");
           cJSON_AddNumberToObject(json, "rows", 0);
-          cJSON_AddNumberToObject(json, "code", HTTP_OK);
+          cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
 // clean exit procedure w/ housekeeping
           char *json_string = cJSON_PrintUnformatted(json);
           cJSON_Delete(json);
@@ -100,7 +101,7 @@ static char* handle_put_request(const char *url, const char *request_body, size_
         }
     }
 // request format is KO
-  cJSON_AddStringToObject(json, "error", "Invalid PUT request");
+  cJSON_AddStringToObject(json, "status", "Invalid PUT request");
   cJSON_AddNumberToObject(json, "httpcode", HTTP_BAD_REQUEST);
 // clean exit procedure w/ housekeeping
   char *json_string = cJSON_PrintUnformatted(json);
