@@ -4,17 +4,6 @@
 static char* handle_get_request(const char *url) {
 // initialize the JSON answer
     cJSON *json = cJSON_CreateObject();  
-// check resource exposition  
- //        if(!is_exposed(url))
- //        {
- //           fprintf(stderr, "resource not exposed\n");
- //           cJSON_AddStringToObject(json, "status", "RESOURCE not exposed");
- //           cJSON_AddStringToObject(json, "httpcode", "404");
- // clean exit procedure w/ housekeeping         
- //          char *json_string = cJSON_PrintUnformatted(json);
- //          cJSON_Delete(json);
- //          return json_string; // Caller is responsible for freeing this memory
- //        }
 // initializing the variables 
     char schema[64];  
     char table[64];
