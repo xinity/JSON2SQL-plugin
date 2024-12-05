@@ -67,8 +67,8 @@ static char* handle_patch_request(const char *url, const char *upload_data, size
         }
     }
 // request format is KO
-  cJSON_AddStringToObject(json, "error", "Invalid POST request");
-  cJSON_AddNumberToObject(json, "code", HTTP_BAD_REQUEST);
+  cJSON_AddStringToObject(json, "status", "Invalid POST request");
+  cJSON_AddNumberToObject(json, "httpcode", HTTP_BAD_REQUEST);
 // clean exit procedure w/ housekeeping
   char *json_string = cJSON_PrintUnformatted(json);
   cJSON_Delete(json);
