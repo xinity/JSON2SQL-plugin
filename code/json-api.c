@@ -23,8 +23,11 @@ static struct MHD_Daemon *listener = NULL;
 // resource format : 
 // /v1/
 // /v1/status/
-// /v1/tables/SCHEMA/TABLE/*
-// /v1/procedures/SCHEMA/PROCNAME/*
+// /v1/tables/%
+// /v1/tables/SCHEMA/%
+// /v1/tables/SCHEMA/TABLE/
+// /v1/procedures/%
+// /v1/procedures/PROCNAME/
 int is_exposed_resource(const char *url) {
     for (int i = 0; i < num_resources; i++) {
         if (strcmp(url, resources[i]) == 0) {
@@ -42,7 +45,7 @@ static int send_json_response(struct MHD_Connection *connection, const char *jso
     unsigned int http_code = field->valueint; 
     cJSON_Delete(json);
     if (httpcode == 405) {
-// mandatory allow header for 405
+// mandatory allow header for HTTP 405
         MHD_add_response_header(response, MHD_HTTP_HEADER_ALLOW, "GET, POST, PUT, PATCH, DELETE");
     }
     MHD_add_response_header(response, "Content-Type", "application/json");
@@ -55,47 +58,35 @@ static int request_handler(void *cls, struct MHD_Connection *connection,
                            const char *url, const char *method,
                            const char *version, const char *upload_data,
                            size_t *upload_data_size, void **con_cls) {
-
+// here : check the JWT
+// then matter which request it was
 if (strcmp(method, "GET") == 0) {
 // SELECT
     char *response = handle_get_request(url);
-    int ret = send_json_response(connection, response);
-    free(response); // Free the allocated JSON string
-    return ret;
     } else if (strcmp(method, "POST") == 0) {
 // INSERT
       char *response = handle_post_request(url, upload_data, upload_data_size);
-      int ret = send_json_response(connection, response);
-      free(response); // Free the allocated JSON string
-      return ret;
     } else if (strcmp(method, "PATCH") == 0) {
 // UPDATE
       char *response = handle_patch_request(url, upload_data, upload_data_size);
-      int ret = send_json_response(connection, response);
-      free(response); // Free the allocated JSON string
-      return ret;
     } else if (strcmp(method, "PUT") == 0) {
 // CALL
       char *response = handle_put_request(url, upload_data, upload_data_size);
-      int ret = send_json_response(connection, response);
-      free(response); // Free the allocated JSON string
-      return ret;
     } else if (strcmp(method, "DELETE") == 0) {
 // DELETE
       char *response = handle_delete_request(url);
-        int ret = send_json_response(connection, response);
-        free(response); // Free the allocated JSON string
-        return ret;
     } else {
-        // Method not supported
-        cJSON *json = cJSON_CreateObject();
-        cJSON_AddStringToObject(json, "error", "method not allowed");
-        cJSON_AddNumberToObject(json, "httpcode", HTTP_METHOD_NOT_ALLOWED);
+// Method not supported
+      cJSON *json = cJSON_CreateObject();
+      cJSON_AddStringToObject(json, "error", "method not allowed");
+      cJSON_AddNumberToObject(json, "httpcode", HTTP_METHOD_NOT_ALLOWED);
 // clean exit procedure w/ housekeeping
-        char *response = cJSON_PrintUnformatted(json);
-        cJSON_Delete(json);
-        return send_json_response(connection, response);
+      char *response = cJSON_PrintUnformatted(json);
+      cJSON_Delete(json);
     }
+int ret = send_json_response(connection, response);
+free(response); // Free the allocated JSON string
+return ret;
 }
 
 static int json_api_plugin_init(void *p) {
