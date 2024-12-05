@@ -6,6 +6,7 @@ static char* handle_delete_request(const char *url) {
     cJSON *json = cJSON_CreateObject();  
 
 #if DELETECORK == 1
+    cJSON_AddStringToObject(json, "status", "CORK");
     cJSON_AddStringToObject(json, "method", "DELETE");
     cJSON_AddStringToObject(json, "url", url);
     cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
