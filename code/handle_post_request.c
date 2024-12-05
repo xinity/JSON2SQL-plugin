@@ -42,7 +42,7 @@ static char* handle_post_request(const char *url, const char *upload_data, size_
         {
 // resulset to json translation
            cJSON_AddStringToObject(json, "status", "OK");
-           cJSON_AddNumberToObject(json, "rows", mysql_affected_rows(resultset));
+           cJSON_AddNumberToObject(json, "rows", (int)mysql_affected_rows(resultset));
           cJSON_AddNumberToObject(json, "mariadbcode", mysql_errno(connection));
           cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
 // clean exit procedure w/ housekeeping
