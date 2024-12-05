@@ -4,17 +4,6 @@
 static char* handle_put_request(const char *url, const char *request_body, size_t *request_body_size) {
 // initialize the JSON answer
     cJSON *json = cJSON_CreateObject();  
-// check resource exposition  
-//        if(!is_exposed(url))
-//        {
-//           fprintf(stderr, "resource not exposed\n");
-//           cJSON_AddStringToObject(json, "status", "RESOURCE not exposed");
-//           cJSON_AddStringToObject(json, "httpcode", "404");
-// clean exit procedure w/ housekeeping         
-//          char *json_string = cJSON_PrintUnformatted(json);
-//          cJSON_Delete(json);
-//          return json_string; // Caller is responsible for freeing this memory
-//        }
 // check request format, parameter extraction & statement exec
   if (sscanf(url, "/v1/procedures/%64[^/]/%64s", schema, procname) == 2) {  
     // initializing the variables 
