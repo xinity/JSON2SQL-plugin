@@ -37,6 +37,7 @@ int is_exposed_resource(const char *url) {
     return 0; // No exposed resource found
 }
 
+// sends back answer to client
 static int send_json_response(struct MHD_Connection *connection, const char *json_string) {
     struct MHD_Response *response = MHD_create_response_from_buffer(strlen(json_string), (void *)json_string, MHD_RESPMEM_MUST_COPY);
 // extract http return code from json_string
@@ -54,6 +55,7 @@ static int send_json_response(struct MHD_Connection *connection, const char *jso
     return ret;
 }
 
+// links request to their logic
 static int request_handler(void *cls, struct MHD_Connection *connection,
                            const char *url, const char *method,
                            const char *version, const char *upload_data,
@@ -89,6 +91,7 @@ free(response); // Free the allocated JSON string
 return ret;
 }
 
+// API bootstrap : httpd startup
 static int json_api_plugin_init(void *p) {
     listener = MHD_start_daemon(MHD_USE_INTERNAL_POLLING_THREAD | MHD_USE_DEBUG,
                               PORT, NULL, NULL,
@@ -103,6 +106,7 @@ static int json_api_plugin_init(void *p) {
     return 0;
 }
 
+// API shutdown : housekeeping
 static int json_api_plugin_deinit(void *p) {
     if (listener != NULL) {
         MHD_stop_daemon(listener);
