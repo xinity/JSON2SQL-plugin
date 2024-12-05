@@ -1,5 +1,5 @@
 //include
-#include "global-json-api.h"
+#include "common.h"
 
 static char* handle_get_request(const char *url) {
 // initialize the JSON answer
