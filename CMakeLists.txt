@@ -11,7 +11,8 @@ include_directories(/usr/include/mysql/server/)
 # Add the plugin library
 add_library(json2sql MODULE code/json-api.c)
 
-target_link_libraries(json2sql cjson microhttpd)
+target_link_libraries(json2sql cjson microhttpd mysqlservices)
+
 # Set output directory for the plugin
 set_target_properties(json2sql PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "/app/plugin" )
