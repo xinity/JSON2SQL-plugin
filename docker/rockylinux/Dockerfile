@@ -26,7 +26,7 @@ RUN git clone --depth 1 https://github.com/SylvainA77/json2sql-plugin.git .
 #COPY . .
 
 # Build your project
-RUN mkdir build && cd build && cmake .. && make
+RUN mkdir build && cd build && cmake .. && cmake --build . --verbose
 
 FROM mariadb:11.4
 
