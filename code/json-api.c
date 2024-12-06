@@ -245,7 +245,7 @@ static int json_api_plugin_init(void *p) {
                               &request_handler, NULL,
                               MHD_OPTION_END);
 
-    if (daemon == NULL) {
+    if (listener == NULL) {
        fprintf(stderr, "Failed to start server\n");
        return 1;
     }
