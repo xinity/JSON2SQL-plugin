@@ -22,6 +22,9 @@ WORKDIR /app
 # Clone your GitHub repository
 RUN git clone --depth 1 https://github.com/SylvainA77/json2sql-plugin.git .
 
+# Alternately build from the top level directory of this repo
+#COPY . .
+
 # Build your project
 RUN mkdir build && cd build && cmake .. && make
 
