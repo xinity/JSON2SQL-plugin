@@ -25,6 +25,9 @@
 #define APIUSER "apiadmin"
 #define APIPASSWD "Ap1-4dmiN"
 
+// ease the use of mysql_real_query
+#define STRING_WITH_LEN(X) (X), ((size_t) (sizeof(X) - 1))
+
 // Plugin declaration structure
 static struct st_mysql_daemon json_api_plugin = {
     MYSQL_DAEMON_INTERFACE_VERSION
@@ -112,8 +115,8 @@ static char* handle_get_request(const char *url) {
            return json_string; // Caller is responsible for freeing this memory
         }
       
-        if (mysql_query(conn, query)) {
-           fprintf(stderr, "mysql_query() failed\n");
+        if (mysql_real_query(conn, STRING_WITH_LEN(query))) {
+           fprintf(stderr, "mysql_real_query failed\n");
            mysql_close(conn);
            cJSON_AddStringToObject(json, "status", "QUERY failed");
            char *json_string = cJSON_PrintUnformatted(json);
