@@ -6,8 +6,6 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED True)
 
 # Include directories
-include_directories(/usr/include/)
-include_directories(/usr/include/cjson/)
 include_directories(/usr/include/mysql/server/)
 
 # Add the plugin library
