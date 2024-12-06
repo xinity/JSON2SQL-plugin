@@ -77,13 +77,14 @@ static char* handle_get_request(const char *url) {
     char colvalue[64];
     char procname[64];
     char query[512]="";
+    size_t query_len;
 
     // initialize the JSON answer
     cJSON *json = cJSON_CreateObject();
     
     if (sscanf(url, "/v1/tables/%64[^/]/%64[^/]/%64[^/]/%64s", schema, table, colname, colvalue) == 4) {   
         // Here query database
-        snprintf(query, sizeof(query), "SELECT * FROM %s.%s WHERE %s = '%s'", schema, table, colname, colvalue);
+        query_len = snprintf(query, sizeof(query), "SELECT * FROM %s.%s WHERE %s = '%s'", schema, table, colname, colvalue);
         cJSON_AddStringToObject(json, "source", "tables");
         cJSON_AddStringToObject(json, "schema", schema);
         cJSON_AddStringToObject(json, "table", table);
@@ -118,7 +119,7 @@ static char* handle_get_request(const char *url) {
            return json_string; // Caller is responsible for freeing this memory
         }
       
-        if (mysql_real_query(conn, STRING_WITH_LEN(query))) {
+        if (mysql_real_query(conn, query, query_len)) {
            fprintf(stderr, "mysql_real_query failed\n");
            mysql_close(conn);
            cJSON_AddStringToObject(json, "status", "QUERY failed");
