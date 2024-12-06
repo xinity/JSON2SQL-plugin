@@ -3,7 +3,10 @@
 #include <stdio.h>
 
 // MariaDB headers
-#include <mysql.h>
+#ifndef MYSQL_DYNAMIC_PLUGIN
+#define MYSQL_DYNAMIC_PLUGIN
+#endif
+
 #include <mysql/plugin.h>
 
 // micro httpd headers
