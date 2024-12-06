@@ -28,7 +28,7 @@ RUN git clone --depth 1 https://github.com/SylvainA77/json2sql-plugin.git .
 # Build your project
 RUN mkdir build && cd build && cmake .. && make
 
-FROM mariadb:latest
+FROM mariadb:11.4
 
 RUN apt-get update && apt-get install -y libcjson1 libmicrohttpd12t64 && rm -rf /var/lib/apt/lists/*
 COPY --from=build /app/plugin/libjson2sql.so /usr/lib/mysql/plugin
