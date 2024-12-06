@@ -27,6 +27,7 @@ RUN mkdir build && cd build && cmake .. && make
 
 FROM mariadb:latest
 
+RUN apt-get update && apt-get install -y libcjson1 libmicrohttpd12t64 && rm -rf /var/lib/apt/lists/*
 COPY --from=build /app/plugin/libjson2sql.so /usr/lib/mysql/plugin
 RUN printf "[mariadb]\nplugin-load-add=libjson2sql\n" > /etc/mysql/mariadb.conf.d/load_jsonplugin.cnf
 # Expose the default json2sql port
