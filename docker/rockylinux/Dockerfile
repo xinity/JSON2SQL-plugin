@@ -1,8 +1,5 @@
 # Use Rocky Linux as the base image
-FROM rockylinux/rockylinux:8
-
-# Set environment variables to avoid prompts during package installation
-ENV DEBIAN_FRONTEND=noninteractive
+FROM rockylinux/rockylinux:8 as build
 
 # Add a label for the image author
 LABEL maintainer="arbaudie.it@gmail.com"
@@ -23,15 +20,14 @@ RUN curl -sSL https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash -s
 WORKDIR /app
 
 # Clone your GitHub repository
-RUN git clone https://github.com/SylvainA77/json2sql-plugin.git .
+RUN git clone --depth 1 https://github.com/SylvainA77/json2sql-plugin.git .
 
 # Build your project
 RUN mkdir build && cd build && cmake .. && make
 
-# Expose the default MariaDB port
-EXPOSE 3306
-# Expose the defaul json2sql port
-EXPOSE 3000
+FROM mariadb:latest
 
-# Start command for the container (MariaDB will not auto-start)
-CMD ["/bin/bash"]
+COPY --from=build /app/plugin/libjson2sql.so /usr/lib/mysql/plugin
+RUN printf "[mariadb]\nplugin-load-add=libjson2sql\n" > /etc/mysql/mariadb.conf.d/load_jsonplugin.cnf
+# Expose the default json2sql port
+EXPOSE 3000
