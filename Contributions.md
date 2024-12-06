@@ -3,7 +3,6 @@
 * perplexity : (sometimes whismical) tech advisor
 * Daniel Black : invaluable insights about mariadb plugin development, Dockerfile
 * Sergei Golubchik : cmake troubleshooting
-* Patrizio Tamorri : dockerfile advisor
 * Markus Mäkelä : json + jwt tech advisor
 * Vladislav Vaintroub : httpd tech advisor
 
