@@ -7,6 +7,6 @@
 ## Tech advisors
 * Sergei Golubchik : cmake troubleshooting
 * Markus Mäkelä : json + jwt tech advisor
-* Vladislav Vaintroub : httpd tech adviso
+* Vladislav Vaintroub : httpd tech advisor
   
 ### Thank you all !
