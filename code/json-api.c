@@ -1,6 +1,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdio.h>
+#include <arpa/inet.h>
 
 // MariaDB headers
 #ifndef MYSQL_DYNAMIC_PLUGIN
@@ -23,6 +24,9 @@
 
 // TODO : managing port via a system variable
 #define PORT 3000
+#ddefine ADDRESS "0.0.0.0"
+
+struct MHD_Daemon;
 
 // TODO : managing credentials through JWTs and request body
 #define APIUSER "apiadmin"
@@ -240,9 +244,15 @@ char *response = handle_delete_request(url);
 }
 
 static int json_api_plugin_init(void *p) {
-    listener = MHD_start_daemon(MHD_USE_INTERNAL_POLLING_THREAD | MHD_USE_DEBUG,
+    struct sockaddr_in addr;
+    memset(&addr, 0, sizeof(struct sockaddr_in));
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(PORT);
+    inet_pton(AF_INET, ADDRESS, &(addr.sin_addr));
+    
+    listener = MHD_start_daemon(MHD_USE_POLL | MHD_USE_INTERNAL_POLLING_THREAD | MHD_USE_DEBUG,
                               PORT, NULL, NULL,
-                              &request_handler, NULL,
+                              &request_handler, NULL, MHD_OPTION_SOCK_ADDR, &addr,
                               MHD_OPTION_END);
 
     if (listener == NULL) {
