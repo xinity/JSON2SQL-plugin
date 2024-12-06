@@ -13,7 +13,7 @@ RUN yum clean all
 
 
 # Add MariaDB 10.11 repository and install it + devel headers + housekeeping
-RUN curl -sSL https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash -s -- --mariadb-server-version="mariadb-10.11" && \
+RUN curl -sSL https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash -s -- --mariadb-server-version="mariadb-11.4" && \
     yum install -y MariaDB-server MariaDB-client MariaDB-devel && yum clean all
 
 # Set the working directory
