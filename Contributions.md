@@ -2,10 +2,9 @@
 * Sylvain Arbaudie : project initiator
 * perplexity : (sometimes whismical) tech advisor
 * Daniel Black : invaluable insights about mariadb plugin development, Dockerfile
-* Sergei Golubchik : compilation & cmake issues
+* Sergei Golubchik : cmake troubleshooting
 * Patrizio Tamorri : dockerfile advisor
-* Frederico Razzoli : tech advisor
-* Markus Mäkelä : json + jwr tech advisor
+* Markus Mäkelä : json + jwt tech advisor
 * Vladislav Vaintroub : httpd tech advisor
 
 ### Thank you all !
