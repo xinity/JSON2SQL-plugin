@@ -34,11 +34,13 @@ extern int is_exposed_resource(const char *url);
 #define PLUGIN_DESCRIPTION   "simple JSON-to-SQL API Plugin for MariaDB"
 
 // are functions corked or not
-#define GETCORK    1
-#define PUTCORK    1
-#define POSTCORK   1
-#define PATCHCORK  1
-#define DELETECORK 1
+#define GETCORK     1
+#define PUTCORK     1
+#define POSTCORK    1
+#define PATCHCORK   1
+#define DELETECORK  1
+#define HANDLERCORK 1
+#define METHODCORK  1
 
 // defining use HTTP response codes
 #define HTTP_OK                     200
