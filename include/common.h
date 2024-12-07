@@ -59,7 +59,7 @@ extern int is_exposed_resource(const char *url);
 #define PATCH  'update'
 #define DELETE 'delete'
 
-// standard exposed resources
+// default exposed resources
 #define HEALTHCHECK  ''/v1/'
 #define STATUS        '/v1/status/'
 #define SUBSCRIPTION  '/v1/subscription/'
