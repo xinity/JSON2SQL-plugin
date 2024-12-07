@@ -62,22 +62,102 @@ static int request_handler(void *cls, struct MHD_Connection *connection,
                            const char *url, const char *method,
                            const char *version, const char *upload_data,
                            size_t *upload_data_size, void **con_cls) {
+
+#if HANDLERCORK == 1
+// initialize the JSON answer
+    cJSON *json = cJSON_CreateObject();
+    cJSON_AddStringToObject(json, "status", "CORK");
+    cJSON_AddStringToObject(json, "method", method);
+    cJSON_AddStringToObject(json, "url", url);
+    cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
+    char *response = cJSON_PrintUnformatted(json);
+    cJSON_Delete(json);
+    int ret = send_json_response(connection, response);
+    free(response); // Free the allocated JSON string
+    return ret;
+#endif
+    
 // here : check the JWT
 // then matter which request it was
 if (strcmp(method, "GET") == 0) {
 // SELECT
+    #if METHODCORK == 1
+    cJSON *json = cJSON_CreateObject();
+    cJSON_AddStringToObject(json, "status", "CORK");
+    cJSON_AddStringToObject(json, "method", method);
+    cJSON_AddStringToObject(json, "url", url);
+    cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
+    char *response = cJSON_PrintUnformatted(json);
+    cJSON_Delete(json);
+    int ret = send_json_response(connection, response);
+    free(response); // Free the allocated JSON string
+    return ret;
+    #endif
+    
     char *response = handle_get_request(url);
     } else if (strcmp(method, "POST") == 0) {
 // INSERT
+    #if METHODCORK == 1
+    cJSON *json = cJSON_CreateObject();
+    cJSON_AddStringToObject(json, "status", "CORK");
+    cJSON_AddStringToObject(json, "method", method);
+    cJSON_AddStringToObject(json, "url", url);
+    cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
+    char *response = cJSON_PrintUnformatted(json);
+    cJSON_Delete(json);
+    int ret = send_json_response(connection, response);
+    free(response); // Free the allocated JSON string
+    return ret;
+    #endif
+    
       char *response = handle_post_request(url, upload_data, upload_data_size);
     } else if (strcmp(method, "PATCH") == 0) {
 // UPDATE
+    #if METHODCORK == 1
+    cJSON *json = cJSON_CreateObject();
+    cJSON_AddStringToObject(json, "status", "CORK");
+    cJSON_AddStringToObject(json, "method", method);
+    cJSON_AddStringToObject(json, "url", url);
+    cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
+    char *response = cJSON_PrintUnformatted(json);
+    cJSON_Delete(json);
+    int ret = send_json_response(connection, response);
+    free(response); // Free the allocated JSON string
+    return ret;
+    #endif
+    
       char *response = handle_patch_request(url, upload_data, upload_data_size);
     } else if (strcmp(method, "PUT") == 0) {
 // CALL
+    #if METHODCORK == 1
+    cJSON *json = cJSON_CreateObject();
+    cJSON_AddStringToObject(json, "status", "CORK");
+    cJSON_AddStringToObject(json, "method", method);
+    cJSON_AddStringToObject(json, "url", url);
+    cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
+    char *response = cJSON_PrintUnformatted(json);
+    cJSON_Delete(json);
+    int ret = send_json_response(connection, response);
+    free(response); // Free the allocated JSON string
+    return ret;
+    #endif
+    
       char *response = handle_put_request(url, upload_data, upload_data_size);
     } else if (strcmp(method, "DELETE") == 0) {
 // DELETE
+    #if METHODCORK == 1
+    cJSON *json = cJSON_CreateObject();
+    cJSON_AddStringToObject(json, "status", "CORK");
+    cJSON_AddStringToObject(json, "method", method);
+    cJSON_AddStringToObject(json, "url", url);
+    cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
+    char *response = cJSON_PrintUnformatted(json);
+    cJSON_Delete(json);
+    int ret = send_json_response(connection, response);
+    free(response); // Free the allocated JSON string
+    return ret;
+    #endif
+    
       char *response = handle_delete_request(url);
     } else {
 // Method not supported
