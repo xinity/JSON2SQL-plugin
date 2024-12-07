@@ -26,6 +26,25 @@
 #define PORT 3000
 #ddefine ADDRESS "0.0.0.0"
 
+// are functions corked or not
+#define GETCORK     1
+#define PUTCORK     1
+#define POSTCORK    1
+#define PATCHCORK   1
+#define DELETECORK  1
+#define HANDLERCORK 1
+#define METHODCORK  1
+
+// defining use HTTP response codes
+#define HTTP_OK                     200
+#define HTTP_INTERNAL_SERVER_ERROR  500
+#define HTTP_BAD_REQUEST            400
+#define HTTP_UNAUTHORIZED           401
+#define HTTP_FORBIDDEN              403
+#define HTTP_NOT_FOUND              404
+#define HTTP_METHOD_NOT_ALLOWED     405
+#define HTTP_UNSUPPORTED_MEDIA_TYPE 415
+
 struct MHD_Daemon;
 
 // TODO : managing credentials through JWTs and request body
@@ -201,8 +220,35 @@ static MHD_Result request_handler(void *cls, struct MHD_Connection *connection,
                            const char *version, const char *upload_data,
                            size_t *upload_data_size, void **con_cls) {
 
-if (strcmp(method, "GET") == 0) {
-char *response = handle_get_request(url);
+#if HANDLERCORK == 1
+// initialize the JSON answer
+    cJSON *json = cJSON_CreateObject();
+    cJSON_AddStringToObject(json, "status", "CORK");
+    cJSON_AddStringToObject(json, "method", method);
+    cJSON_AddStringToObject(json, "url", url);
+    cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
+    char *response = cJSON_PrintUnformatted(json);
+    cJSON_Delete(json);
+    int ret = send_json_response(connection, response);
+    free(response); // Free the allocated JSON string
+    return ret;
+#endif
+
+    if (strcmp(method, "GET") == 0) {
+    #if METHODCORK == 1
+    cJSON *json = cJSON_CreateObject();
+    cJSON_AddStringToObject(json, "status", "CORK");
+    cJSON_AddStringToObject(json, "method", method);
+    cJSON_AddStringToObject(json, "url", url);
+    cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
+    char *response = cJSON_PrintUnformatted(json);
+    cJSON_Delete(json);
+    int ret = send_json_response(connection, response);
+    free(response); // Free the allocated JSON string
+    return ret;
+    #endif    
+        
+    char *response = handle_get_request(url);
     if (response) {
         int ret = send_json_response(connection, response);
         free(response); // Free the allocated JSON string
@@ -211,7 +257,20 @@ char *response = handle_get_request(url);
         return send_json_response(connection, "{\"error\": \"Invalid GET request\"}");
     }
     } else if (strcmp(method, "POST") == 0) {
-char *response = handle_post_request(url);
+        #if METHODCORK == 1
+        cJSON *json = cJSON_CreateObject();
+        cJSON_AddStringToObject(json, "status", "CORK");
+        cJSON_AddStringToObject(json, "method", method);
+        cJSON_AddStringToObject(json, "url", url);
+        cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
+        char *response = cJSON_PrintUnformatted(json);
+        cJSON_Delete(json);
+        int ret = send_json_response(connection, response);
+        free(response); // Free the allocated JSON string
+        return ret;
+        #endif 
+        
+    char *response = handle_post_request(url);
     if (response) {
         int ret = send_json_response(connection, response);
         free(response); // Free the allocated JSON string
@@ -220,7 +279,20 @@ char *response = handle_post_request(url);
         return send_json_response(connection, "{\"error\": \"Invalid POST request\"}");
     }
     } else if (strcmp(method, "PATCH") == 0) {
-char *response = handle_patch_request(url);
+        #if METHODCORK == 1
+        cJSON *json = cJSON_CreateObject();
+        cJSON_AddStringToObject(json, "status", "CORK");
+        cJSON_AddStringToObject(json, "method", method);
+        cJSON_AddStringToObject(json, "url", url);
+        cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
+        char *response = cJSON_PrintUnformatted(json);
+        cJSON_Delete(json);
+        int ret = send_json_response(connection, response);
+        free(response); // Free the allocated JSON string
+        return ret;
+        #endif
+        
+    char *response = handle_patch_request(url);
     if (response) {
         int ret = send_json_response(connection, response);
         free(response); // Free the allocated JSON string
@@ -229,7 +301,19 @@ char *response = handle_patch_request(url);
         return send_json_response(connection, "{\"error\": \"Invalid PUT request\"}");
     }
     } else if (strcmp(method, "DELETE") == 0) {
-char *response = handle_delete_request(url);
+        #if METHODCORK == 1
+        cJSON *json = cJSON_CreateObject();
+        cJSON_AddStringToObject(json, "status", "CORK");
+        cJSON_AddStringToObject(json, "method", method);
+        cJSON_AddStringToObject(json, "url", url);
+        cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
+        char *response = cJSON_PrintUnformatted(json);
+        cJSON_Delete(json);
+        int ret = send_json_response(connection, response);
+        free(response); // Free the allocated JSON string
+        return ret;
+        #endif
+    char *response = handle_delete_request(url);
     if (response) {
         int ret = send_json_response(connection, response);
         free(response); // Free the allocated JSON string
