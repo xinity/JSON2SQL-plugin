@@ -16,11 +16,9 @@
 // cJSON headers
 #include <cjson/cJSON.h>
 
-// #define MYSQL_DAEMON_PLUGIN  3  /* The daemon/raw plugin type */
 #define PLUGIN_NAME          "json2sql"
 #define PLUGIN_AUTHOR        "Sylvain Arbaudie <arbaudie.it@gmail.com>"
 #define PLUGIN_DESCRIPTION   "JSON-to-SQL API Plugin for MariaDB"
-// #define PLUGIN_LICENSE_GPL   "GNU AGPL v3"
 
 // TODO : managing port via a system variable
 #define PORT 3000
@@ -364,18 +362,18 @@ static int json_api_plugin_deinit(void *p) {
 // Plugin descriptor
 mysql_declare_plugin(json_api)
 {
-    MYSQL_DAEMON_PLUGIN,      /* the plugin type (a MYSQL_XXX_PLUGIN value)     */
-    &json_api_plugin,         /* pointer to type-specific plugin descriptor     */
-    PLUGIN_NAME,              /* plugin name                                    */
-    PLUGIN_AUTHOR,            /* plugin author (for I_S.PLUGINS)                */
-    PLUGIN_DESCRIPTION,       /* general descriptive text (for I_S.PLUGINS)     */
-    PLUGIN_LICENSE_GPL,       /* the plugin license (PLUGIN_LICENSE_XXX)        */
-    json_api_plugin_init,     /* the function to invoke when plugin is loaded   */
-    json_api_plugin_deinit,   /* the function to invoke when plugin is unloaded */
-    0x0100,                   /* plugin version (for I_S.PLUGINS)               */
-    NULL,                     /* for status vars                                */
-    NULL,                     /* for system vars                                */
-    NULL,                     /* reserved for dependency checking               */
-    0                         /* flags for plugin                               */
+    MYSQL_DAEMON_PLUGIN,              /* the plugin type (a MYSQL_XXX_PLUGIN value)     */
+    &json_api_plugin,                 /* pointer to type-specific plugin descriptor     */
+    PLUGIN_NAME,                      /* plugin name                                    */
+    PLUGIN_AUTHOR,                    /* plugin author (for I_S.PLUGINS)                */
+    PLUGIN_DESCRIPTION,               /* general descriptive text (for I_S.PLUGINS)     */
+    PLUGIN_LICENSE_GPL,               /* the plugin license (PLUGIN_LICENSE_XXX)        */
+    json_api_plugin_init,             /* the function to invoke when plugin is loaded   */
+    json_api_plugin_deinit,           /* the function to invoke when plugin is unloaded */
+    0x0100,                           /* plugin version (for I_S.PLUGINS)               */
+    NULL,                             /* for status vars                                */
+    NULL,                             /* for system vars                                */
+    NULL,                             /* reserved for dependency checking               */
+    MariaDB_PLUGIN_MATURITY_ALPHA     /* maturity flags for plugin                      */
 }
 mysql_declare_plugin_end;
