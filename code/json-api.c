@@ -177,7 +177,7 @@ static char* handle_get_request(const char *url) {
                  cJSON *row_object = cJSON_CreateObject();
 // handling of rows in the following format : "columnname":"columnvalue"
                 for (unsigned int i = 0; i < num_fields; i++) {
-                     field = mysql_fetch_field_direct(result, i); // Get field info
+                     field = mysql_fetch_field(result); // Get field info
                      cJSON_AddStringToObject(row_object, field->name, row[i] ? row[i] : "NULL");
                  }
 // Add the row object to the array
