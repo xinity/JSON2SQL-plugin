@@ -360,10 +360,11 @@ static int json_api_plugin_deinit(void *p) {
 }
 
 // Plugin descriptor
-mysql_declare_plugin(json2sql_plugin)
+// Plugin descriptor
+mysql_declare_plugin(json_api)
 {
     MYSQL_DAEMON_PLUGIN,              /* the plugin type (a MYSQL_XXX_PLUGIN value)     */
-    &json2sql_plugin,                 /* pointer to type-specific plugin descriptor     */
+    &json_api_plugin,                 /* pointer to type-specific plugin descriptor     */
     PLUGIN_NAME,                      /* plugin name                                    */
     PLUGIN_AUTHOR,                    /* plugin author (for I_S.PLUGINS)                */
     PLUGIN_DESCRIPTION,               /* general descriptive text (for I_S.PLUGINS)     */
