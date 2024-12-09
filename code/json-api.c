@@ -223,6 +223,9 @@ static int request_handler(void *cls, struct MHD_Connection *connection,
 
 #if HANDLERCORK == 1
 // initialize the JSON answer
+    char buffer[128];
+    int len = snprintf(buffer, sizeof(buffer), "method:%s, url:%s",method,url);
+    printf("%s\n", buffer)
     cJSON *json = cJSON_CreateObject();
     cJSON_AddStringToObject(json, "status", "CORK");
     cJSON_AddStringToObject(json, "method", method);
