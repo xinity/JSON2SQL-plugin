@@ -166,23 +166,21 @@ static char* handle_get_request(const char *url) {
         if (num_rows > 0) {
            cJSON_AddStringToObject(json, "status", "OK");
            cJSON_AddNumberToObject(json, "rows", (double)num_rows);
-
-           // Create a JSON array to hold all rows
+// Create a JSON array to hold all rows
            cJSON *rows_array = cJSON_CreateArray();
-
            unsigned int num_fields = mysql_num_fields(result);
-           MYSQL_FIELD *fields = mysql_fetch_fields(result);
-
+//           MYSQL_FIELD *fields = mysql_fetch_fields(result);
+           MYSQL_FIELD *fields: 
            MYSQL_ROW row;
-           while ((row = mysql_fetch_row(result))) {
-                 // Create a JSON object for each row
+           while ((row = mysql_fetch_row(result))) {    
+// Create a JSON object for each row
                  cJSON *row_object = cJSON_CreateObject();
-                 // handling of rows in the following format : "columnname":"columnvalue"
-                 for (unsigned int i = 0; i < num_fields; i++) {
-                     cJSON_AddStringToObject(row_object, fields[i].name, row[i] ? row[i] : "");
+// handling of rows in the following format : "columnname":"columnvalue"
+                for (unsigned int i = 0; i < num_fields; i++) {
+                     field = mysql_fetch_field_direct(result, i); // Get field info
+                     cJSON_AddStringToObject(row_object, field->name, row[i] ? row[i] : "NULL");
                  }
-        
-                // Add the row object to the array
+// Add the row object to the array
                 cJSON_AddItemToArray(rows_array, row_object);
            }
            cJSON_AddItemToObject(json, "data", rows_array);
