@@ -364,7 +364,7 @@ static int json_api_plugin_deinit(void *p) {
 
 // Plugin descriptor
 // Plugin descriptor
-mysql_declare_plugin(json_api)
+mariadb_declare_plugin(json_api)
 {
     MYSQL_DAEMON_PLUGIN,              /* the plugin type (a MYSQL_XXX_PLUGIN value)     */
     &json_api_plugin,                 /* pointer to type-specific plugin descriptor     */
@@ -380,4 +380,4 @@ mysql_declare_plugin(json_api)
     NULL,                             /* reserved for dependency checking               */
     MariaDB_PLUGIN_MATURITY_ALPHA     /* maturity flags for plugin                      */
 }
-mysql_declare_plugin_end;
+mariadb_declare_plugin_end;
