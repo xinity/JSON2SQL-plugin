@@ -1,8 +1,10 @@
-## To compile your MariaDB plugin as an external library without compiling the entire MariaDB server, follow these steps:
+## To compile, install and launch your MariaDB plugin as an external library without compiling the entire MariaDB server, follow these steps:
 
 * download [Dockerfile](https://github.com/SylvainA77/JSON2SQL-plugin/blob/main/docker/rockylinux/Dockerfile) 
-*  docker build --no-cache -t json2sql:latest .
+* docker build --no-cache -t json2sql:latest .
 * docker run -it json2sql
+* cp /app/plugin/* /usr/lib64/mysql/plugin/
+* mariadbd-safe --defaults-extra-file=/etc/load_jsonplugin.cnf &
 
 ## Sources :  
 [1] https://mariadb.org/installing-plugins-in-the-mariadb-docker-library-container/  
