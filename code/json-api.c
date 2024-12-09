@@ -24,7 +24,7 @@
 
 // TODO : managing port via a system variable
 #define PORT 3000
-#ddefine ADDRESS "0.0.0.0"
+#define ADDRESS "0.0.0.0"
 
 // are functions corked or not
 #define GETCORK     1
@@ -33,7 +33,7 @@
 #define PATCHCORK   1
 #define DELETECORK  1
 #define HANDLERCORK 1
-#define METHODCORK  1
+#define HANDLERCORK  1
 
 // defining use HTTP response codes
 #define HTTP_OK                     200
@@ -232,10 +232,10 @@ static MHD_Result request_handler(void *cls, struct MHD_Connection *connection,
     int ret = send_json_response(connection, response);
     free(response); // Free the allocated JSON string
     return ret;
-#endif
+#else
 
     if (strcmp(method, "GET") == 0) {
-    #if METHODCORK == 1
+#if GETCORK == 1
     cJSON *json = cJSON_CreateObject();
     cJSON_AddStringToObject(json, "status", "CORK");
     cJSON_AddStringToObject(json, "method", method);
@@ -246,8 +246,7 @@ static MHD_Result request_handler(void *cls, struct MHD_Connection *connection,
     int ret = send_json_response(connection, response);
     free(response); // Free the allocated JSON string
     return ret;
-    #endif    
-        
+#else    
     char *response = handle_get_request(url);
     if (response) {
         int ret = send_json_response(connection, response);
@@ -256,8 +255,9 @@ static MHD_Result request_handler(void *cls, struct MHD_Connection *connection,
     } else {
         return send_json_response(connection, "{\"error\": \"Invalid GET request\"}");
     }
+#endif
     } else if (strcmp(method, "POST") == 0) {
-        #if METHODCORK == 1
+#if POSTCORK == 1
         cJSON *json = cJSON_CreateObject();
         cJSON_AddStringToObject(json, "status", "CORK");
         cJSON_AddStringToObject(json, "method", method);
@@ -268,8 +268,7 @@ static MHD_Result request_handler(void *cls, struct MHD_Connection *connection,
         int ret = send_json_response(connection, response);
         free(response); // Free the allocated JSON string
         return ret;
-        #endif 
-        
+#else       
     char *response = handle_post_request(url);
     if (response) {
         int ret = send_json_response(connection, response);
@@ -278,8 +277,9 @@ static MHD_Result request_handler(void *cls, struct MHD_Connection *connection,
     } else {
         return send_json_response(connection, "{\"error\": \"Invalid POST request\"}");
     }
+#endif
     } else if (strcmp(method, "PATCH") == 0) {
-        #if METHODCORK == 1
+#if PATCHCORK == 1
         cJSON *json = cJSON_CreateObject();
         cJSON_AddStringToObject(json, "status", "CORK");
         cJSON_AddStringToObject(json, "method", method);
@@ -290,8 +290,7 @@ static MHD_Result request_handler(void *cls, struct MHD_Connection *connection,
         int ret = send_json_response(connection, response);
         free(response); // Free the allocated JSON string
         return ret;
-        #endif
-        
+#else      
     char *response = handle_patch_request(url);
     if (response) {
         int ret = send_json_response(connection, response);
@@ -300,8 +299,9 @@ static MHD_Result request_handler(void *cls, struct MHD_Connection *connection,
     } else {
         return send_json_response(connection, "{\"error\": \"Invalid PUT request\"}");
     }
+#endif
     } else if (strcmp(method, "DELETE") == 0) {
-        #if METHODCORK == 1
+#if DELETECORK == 1
         cJSON *json = cJSON_CreateObject();
         cJSON_AddStringToObject(json, "status", "CORK");
         cJSON_AddStringToObject(json, "method", method);
@@ -312,7 +312,7 @@ static MHD_Result request_handler(void *cls, struct MHD_Connection *connection,
         int ret = send_json_response(connection, response);
         free(response); // Free the allocated JSON string
         return ret;
-        #endif
+#else
     char *response = handle_delete_request(url);
     if (response) {
         int ret = send_json_response(connection, response);
@@ -321,10 +321,12 @@ static MHD_Result request_handler(void *cls, struct MHD_Connection *connection,
     } else {
         return send_json_response(connection, "{\"error\": \"Invalid DELETE request\"}");
     }
+#endif
     } else {
         // Method not supported
         return send_json_response(connection, "{\"error\": \"Unsupported HTTP method\"}");
     }
+#endif 
 }
 
 static int json_api_plugin_init(void *p) {
