@@ -93,6 +93,7 @@ static int send_json_response(struct MHD_Connection *connection, const char *jso
     return ret;
 }
 
+#if GETCORK ==0
 static char* handle_get_request(const char *url) {
     char schema[64];  
     char table[64];
@@ -193,25 +194,29 @@ static char* handle_get_request(const char *url) {
       // request format is KO
       return NULL;
 }
-
+#endif
+#if POSTCORK == 0
 static char* handle_post_request(const char *url) {
 
   // request format is KO  
   return NULL;
 }
-
+#endif
+#if PATCHCORK == 0
 static char* handle_patch_request(const char *url) {
 
   // request format is KO  
   return NULL;
 }
-
+#endif
+#if DELETECORK == 0
 // v1 : "point delete" only
 static char* handle_delete_request(const char *url) {
 
     // request format is KO
     return NULL;
 }
+#endif
 
 static int request_handler(void *cls, struct MHD_Connection *connection,
                            const char *url, const char *method,
