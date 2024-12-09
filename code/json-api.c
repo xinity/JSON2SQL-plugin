@@ -170,7 +170,7 @@ static char* handle_get_request(const char *url) {
            cJSON *rows_array = cJSON_CreateArray();
            unsigned int num_fields = mysql_num_fields(result);
 //           MYSQL_FIELD *fields = mysql_fetch_fields(result);
-           MYSQL_FIELD *fields: 
+           MYSQL_FIELD *field; 
            MYSQL_ROW row;
            while ((row = mysql_fetch_row(result))) {    
 // Create a JSON object for each row
