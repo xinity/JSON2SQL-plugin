@@ -40,6 +40,7 @@ extern const int num_resources;
 #define PATCHCORK   1
 #define DELETECORK  1
 #define HANDLERCORK 1
+#define METHODCORK  1
 
 // defining use HTTP response codes
 #define HTTP_OK                     200
