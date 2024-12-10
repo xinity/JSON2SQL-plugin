@@ -6,21 +6,22 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED True)
 
 # Include directories
-#old school 
+# old school include (afaik)
 #include_directories(/usr/include/mysql/server/)
 
-#new school (afaik)
-target_include_directories(json2sql
-    PRIVATE
-        /usr/include/mysql/server
-        ${CMAKE_CURRENT_SOURCE_DIR}/../include
-)
 
 # Optionally, if you want to include all .c files in the code directory:
 file(GLOB SOURCES "code/*.c")
 
 # Add the plugin library
 add_library(json2sql MODULE ${SOURCES})
+
+# new school include (afaik)
+target_include_directories(json2sql
+    PRIVATE
+        /usr/include/mysql/server
+        ${CMAKE_CURRENT_SOURCE_DIR}/../include
+)
 
 target_link_libraries(json2sql cjson microhttpd mysqlservices)
 
