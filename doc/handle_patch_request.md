@@ -1,5 +1,16 @@
 # Translate PATCH requests into UPDATE statements
-* PATCH /v1/tables/ {"schema":SCHEMA, "table":TABLE, "COLNAME":COLVALUE, "set":["COLNAME1":COLVALUE1, ... "COLNAMEn":COLVALUEn}  → UPDATE SCHEMA.TABLE SET COLs = VALs, ... WHERE COLNAME = COLVALUE
+* PATCH /v1/tables/:SCHEMA/:TABLE/ {JSON BODY REQUEST"COLNAME":COLVALUE, "set":["COLNAME1":COLVALUE1, ... "COLNAMEn":COLVALUEn}  → UPDATE SCHEMA.TABLE SET COLs = VALs, ... WHERE COLNAME = COLVALUE
+
+## expected body request format
+{  
+"column": "value",  
+"cols": m,  
+"set": [  
+"col1": "val1",  
+...  
+"colm": "valm"  
+]  
+}  
 
 ## RESULT  
 * If failure
