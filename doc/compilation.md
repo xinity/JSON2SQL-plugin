@@ -1,46 +1,10 @@
-## To compile your MariaDB plugin as an external library without compiling the entire MariaDB server, follow these steps:
+## To compile, install and launch your MariaDB plugin as an external library without compiling the entire MariaDB server, follow these steps:
 
-1. Install the MariaDB development files:
-   - For Ubuntu/Debian: `sudo apt-get install -y libmariadb-dev`
-   - For Fedora/CentOS: `sudo dnf install -y mariadb-devel`
-
-2. Install cJSON development files :
-   - For Ubuntu/Debian: `sudo apt-get install -y libmariadb-dev` (TBD)
-   - For Fedora/CentOS: `sudo dnf install -y epel-release; dnf install -y cjson-devel`
-  
-3. Install microphttpd developmeent files :
-   - For Ubuntu/Debian: `sudo apt-get install -y libmariadb-dev` (TBD)
-   - For Fedora/CentOS: `sudo dnf --enablerepo=devel install -y libmicrohttpd-devel`   
-
-5. Clone this repo in your work directory
-```bash
-git clone https://github.com/SylvainA77/json2sql-plugin.git .
-```
-   
-5. Create a build directory and navigate to it:
-
-```bash
-mkdir build
-cd build
-```
-
-6. Run CMake to configure the build:
-
-```bash
-cmake ..
-```
-
-7. Compile your plugin:
-
-```bash
-make
-```
-
-The compiled plugin will be in the build directory as `json2sql.so`.
-
-To use the plugin, copy it to the MariaDB plugin directory (usually `/usr/lib/mysql/plugin/`) and load it using SQL commands[1].
-
-## Alternatively you can duild+run the dockerfile from [HERE](https://github.com/SylvainA77/JSON2SQL-plugin/tree/main/docker) 
+* download [Dockerfile](https://github.com/SylvainA77/JSON2SQL-plugin/blob/main/docker/rockylinux/Dockerfile) 
+* docker build --no-cache -t json2sql:latest .
+* docker run -it json2sql
+* cp /app/plugin/* /usr/lib64/mysql/plugin/
+* mariadbd-safe --defaults-extra-file=/etc/load_jsonplugin.cnf &
 
 ## Sources :  
 [1] https://mariadb.org/installing-plugins-in-the-mariadb-docker-library-container/  
