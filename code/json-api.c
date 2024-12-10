@@ -7,52 +7,17 @@
 #define MYSQL_DYNAMIC_PLUGIN
 #endif
 
-#include <mysql/plugin.h>
-
 // micro httpd headers
 #include <microhttpd.h>
 
 // request handlers headers
-// #include "handle_get_request.h"
-// #include "handle_post_request.h"
-// #include "handle_put_request.h"
-// #include "handle_patch_request.h"
-// #include "handle_delete_request.h"
-
-#define PLUGIN_NAME          "json2sql"
-#define PLUGIN_AUTHOR        "Sylvain Arbaudie <arbaudie.it@gmail.com>"
-#define PLUGIN_DESCRIPTION   "simple JSON-to-SQL API Plugin for MariaDB"
-
-// TODO : managing port via a system variable
-#define PORT 3000
-#define ADDRESS "0.0.0.0"
-
-// are functions corked or not
-// #define GETCORK     1
-// #define PUTCORK     1
-// #define POSTCORK    1
-// #define PATCHCORK   1
-// #define DELETECORK  1
-// #define HANDLERCORK 1
-
-// defining use HTTP response codes
-// #define HTTP_OK                     200
-// #define HTTP_INTERNAL_SERVER_ERROR  500
-// #define HTTP_BAD_REQUEST            400
-// #define HTTP_UNAUTHORIZED           401
-// #define HTTP_FORBIDDEN              403
-// #define HTTP_NOT_FOUND              404
-// #define HTTP_METHOD_NOT_ALLOWED     405
-// #define HTTP_UNSUPPORTED_MEDIA_TYPE 415
+#include "handle_get_request.h"
+#include "handle_post_request.h"
+#include "handle_put_request.h"
+#include "handle_patch_request.h"
+#include "handle_delete_request.h"
 
 struct MHD_Daemon;
-
-// TODO : managing credentials through JWTs and request body
-#define APIUSER "apiadmin"
-#define APIPASSWD "Ap1-4dmiN"
-
-// ease the use of mysql_real_query
-#define STRING_WITH_LEN(X) (X), ((size_t) (sizeof(X) - 1))
 
 // Plugin declaration structure
 static struct st_mysql_daemon json_api_plugin = {
@@ -99,7 +64,6 @@ static int send_json_response(struct MHD_Connection *connection, const char *jso
     MHD_destroy_response(response);
     return ret;
 }
-
 
 static int request_handler(void *cls, struct MHD_Connection *connection,
                            const char *url, const char *method,
