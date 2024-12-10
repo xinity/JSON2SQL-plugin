@@ -9,7 +9,7 @@ set(CMAKE_C_STANDARD_REQUIRED True)
 include_directories(/usr/include/mysql/server/)
 
 # Optionally, if you want to include all .c files in the code directory:
-# file(GLOB SOURCES "code/*.c")
+file(GLOB SOURCES "code/*.c")
 
 # Add the plugin library
 add_library(json2sql MODULE ${SOURCES})
