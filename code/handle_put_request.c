@@ -13,7 +13,7 @@ static char* handle_put_request(const char *url, const char *request_body, size_
     char *json_string = cJSON_PrintUnformatted(json);
     cJSON_Delete(json);
     return json_string; // Caller is responsible for freeing this memory
-#endif
+#else
     
 // check request format, parameter extraction & statement exec
   if (sscanf(url, "/v1/procedures/%64[^/]/%64s", schema, procname) == 2) {  
@@ -106,5 +106,6 @@ static char* handle_put_request(const char *url, const char *request_body, size_
 // clean exit procedure w/ housekeeping
   char *json_string = cJSON_PrintUnformatted(json);
   cJSON_Delete(json);
-  return json_string; // Caller is responsible for freeing this memory    
+  return json_string; // Caller is responsible for freeing this memory 
+#endif // PUTCORK
   }
