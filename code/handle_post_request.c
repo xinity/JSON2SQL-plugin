@@ -12,7 +12,7 @@ static char* handle_post_request(const char *url, const char *upload_data, size_
     char *json_string = cJSON_PrintUnformatted(json);
     cJSON_Delete(json);
     return json_string; // Caller is responsible for freeing this memory
-#endif
+#else
     
 // check request format, parameter extraction & statement exec
   if (sscanf(url, "/v1/tables/%64[^/]/%64s", schema, table) == 2) {  
@@ -70,4 +70,5 @@ static char* handle_post_request(const char *url, const char *upload_data, size_
   char *json_string = cJSON_PrintUnformatted(json);
   cJSON_Delete(json);
   return json_string; // Caller is responsible for freeing this memory    
+#endif // POSTCORK
   }
