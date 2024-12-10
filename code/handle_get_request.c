@@ -13,7 +13,7 @@ static char* handle_get_request(const char *url) {
     char *json_string = cJSON_PrintUnformatted(json);
     cJSON_Delete(json);
     return json_string; // Caller is responsible for freeing this memory
-#endif
+#else
     
 // initializing the variables 
     char schema[64];  
@@ -43,7 +43,7 @@ static char* handle_get_request(const char *url) {
 // clean exit procedure w/ housekeeping
   char *json_string = cJSON_PrintUnformatted(json);
   cJSON_Delete(json);
-  return json_string; // Caller is responsible for freeing this memory 
+ 
   }
 // we establish internal local connexion
         MYSQL *connection = mysql_init(NULL);
@@ -57,7 +57,7 @@ static char* handle_get_request(const char *url) {
           cJSON_Delete(json);
           return json_string; // Caller is responsible for freeing this memory
         }
-// we execute the query      
+// executing the query      
         if (mysql_real_query(connection, STRING_WITH_LEN(query))) {
           fprintf(stderr, "mysql_query() failed\n");
           cJSON_AddStringToObject(json, "status", "QUERY failed");
@@ -122,4 +122,5 @@ static char* handle_get_request(const char *url) {
           mysql_free_result(resultset);
           return json_string; // Caller is responsible for freeing this memory
         }
+#endif // GETCORK
 }
