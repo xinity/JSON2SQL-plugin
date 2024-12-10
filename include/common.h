@@ -27,7 +27,7 @@ extern const int num_resources;
 // extern int has_required_privilege(const char *user);
 
 // check for resource exposition
-extern int is_exposed_resource(const char *url);
+// extern int is_exposed_resource(const char *url);
 
 #define PLUGIN_NAME          "json2sql"
 #define PLUGIN_AUTHOR        "Sylvain Arbaudie <arbaudie.it@gmail.com>"
@@ -40,7 +40,6 @@ extern int is_exposed_resource(const char *url);
 #define PATCHCORK   1
 #define DELETECORK  1
 #define HANDLERCORK 1
-#define METHODCORK  1
 
 // defining use HTTP response codes
 #define HTTP_OK                     200
@@ -60,10 +59,10 @@ extern int is_exposed_resource(const char *url);
 #define DELETE 'delete'
 
 // default exposed resources
-#define HEALTHCHECK  ''/v1/'
-#define STATUS        '/v1/status/'
-#define SUBSCRIPTION  '/v1/subscription/'
-#define RESOURCES     '/v1/resources/'
+#define HEALTHCHECK_RESOURCE  ''/v1/'
+#define STATUS_RESOURCE        '/v1/status/'
+#define SUBSCRIPTION_RESOURCE  '/v1/subscription/'
+#define RESOURCES_RESOURCE     '/v1/resources/'
 
 // ease the use of mysql_real_query
 #define STRING_WITH_LEN(X) (X), ((size_t) (sizeof(X) - 1))
