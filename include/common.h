@@ -53,17 +53,17 @@ extern const int num_resources;
 #define HTTP_UNSUPPORTED_MEDIA_TYPE 415
 
 // methodd <=> privilege translation
-#define GET    'select'
-#define PUT    'execute'
-#define POST   'insert'
-#define PATCH  'update'
-#define DELETE 'delete'
+#define GET    "select"
+#define PUT    "execute"
+#define POST   "insert"
+#define PATCH  "update"
+#define DELETE "delete"
 
 // default exposed resources
-#define HEALTHCHECK_RESOURCE  ''/v1/'
-#define STATUS_RESOURCE        '/v1/status/'
-#define SUBSCRIPTION_RESOURCE  '/v1/subscription/'
-#define RESOURCES_RESOURCE     '/v1/resources/'
+#define HEALTHCHECK_RESOURCE   "/v1/"
+#define STATUS_RESOURCE        "/v1/status/"
+#define SUBSCRIPTION_RESOURCE  "/v1/subscription/"
+#define RESOURCES_RESOURCE     "/v1/resources/"
 
 // ease the use of mysql_real_query
 #define STRING_WITH_LEN(X) (X), ((size_t) (sizeof(X) - 1))
@@ -73,6 +73,6 @@ extern const int num_resources;
 #define ADDRESS "0.0.0.0"
 
 // TODO : managing credentials through JWTs and request body
-#define APIUSER 'apiadmin'
+#define APIUSER "apiadmin"
 
 #endif // GLOBALS_H
