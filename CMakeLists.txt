@@ -6,7 +6,15 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED True)
 
 # Include directories
-include_directories(/usr/include/mysql/server/)
+#old school 
+#include_directories(/usr/include/mysql/server/)
+
+#new school (afaik)
+target_include_directories(json2sql
+    PRIVATE
+        /usr/include/mysql/server
+        ${CMAKE_CURRENT_SOURCE_DIR}/../include
+)
 
 # Optionally, if you want to include all .c files in the code directory:
 file(GLOB SOURCES "code/*.c")
