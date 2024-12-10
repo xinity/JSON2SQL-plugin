@@ -86,70 +86,50 @@ static int request_handler(void *cls, struct MHD_Connection *connection,
     free(response); // Free the allocated JSON string
     return ret;
 #else
-     if (strcmp(method, "POST") == 0) {
-#if GETCORK ==1
-    cJSON *json = cJSON_CreateObject();
-    cJSON_AddStringToObject(json, "status", "CORK");
-    cJSON_AddStringToObject(json, "method", method);
-    cJSON_AddStringToObject(json, "url", url);
-    cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
-    char *response = cJSON_PrintUnformatted(json);
-    cJSON_Delete(json);      
+     if (strcmp(method, "GET") == 0) {
+#if METHODCORK ==1
+    char buffer[128];
+    int len = snprintf(buffer, sizeof(buffer), "method:%s, url:%s",method,url);
+    printf("%s\n", buffer);      
 #else
       char *response = handle_get_request(url);
-#endif // GETCORK
+#endif // METHODCORK
     } else if (strcmp(method, "POST") == 0) {
 // INSERT
-#if POSTCORK == 1
-    cJSON *json = cJSON_CreateObject();
-    cJSON_AddStringToObject(json, "status", "CORK");
-    cJSON_AddStringToObject(json, "method", method);
-    cJSON_AddStringToObject(json, "url", url);
-    cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
-    char *response = cJSON_PrintUnformatted(json);
-    cJSON_Delete(json);
+#if METHODCORK == 1
+    char buffer[128];
+    int len = snprintf(buffer, sizeof(buffer), "method:%s, url:%s",method,url);
+    printf("%s\n", buffer)
 #else
       char *response = handle_post_request(url, upload_data, upload_data_size);
-#endif //POSTCORK
+#endif //METHODCORK
     } else if (strcmp(method, "PATCH") == 0) {
 // UPDATE
-#if PATCHCORK == 1
-    cJSON *json = cJSON_CreateObject();
-    cJSON_AddStringToObject(json, "status", "CORK");
-    cJSON_AddStringToObject(json, "method", method);
-    cJSON_AddStringToObject(json, "url", url);
-    cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
-    char *response = cJSON_PrintUnformatted(json);
-    cJSON_Delete(json);
+#if METHODCORK == 1
+    char buffer[128];
+    int len = snprintf(buffer, sizeof(buffer), "method:%s, url:%s",method,url);
+    printf("%s\n", buffer)
 #else
       char *response = handle_patch_request(url, upload_data, upload_data_size);
-#endif //PATCHCORK
+#endif //METHODCORK
     } else if (strcmp(method, "PUT") == 0) {
 // CALL
-#if PUTCORK == 1
-    cJSON *json = cJSON_CreateObject();
-    cJSON_AddStringToObject(json, "status", "CORK");
-    cJSON_AddStringToObject(json, "method", method);
-    cJSON_AddStringToObject(json, "url", url);
-    cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
-    char *response = cJSON_PrintUnformatted(json);
-    cJSON_Delete(json);
+#if METHODCORK == 1
+    char buffer[128];
+    int len = snprintf(buffer, sizeof(buffer), "method:%s, url:%s",method,url);
+    printf("%s\n", buffer)
 #else 
       char *response = handle_put_request(url, upload_data, upload_data_size);
-#endif //PUTCORK
+#endif //METHODCORK
     } else if (strcmp(method, "DELETE") == 0) {
 // DELETE
-#if DELETECORK == 1
-    cJSON *json = cJSON_CreateObject();
-    cJSON_AddStringToObject(json, "status", "CORK");
-    cJSON_AddStringToObject(json, "method", method);
-    cJSON_AddStringToObject(json, "url", url);
-    cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
-    char *response = cJSON_PrintUnformatted(json);
-    cJSON_Delete(json);
+#if METHODCORK == 1
+    char buffer[128];
+    int len = snprintf(buffer, sizeof(buffer), "method:%s, url:%s",method,url);
+    printf("%s\n", buffer)
 #else
       char *response = handle_delete_request(url);
-#endif // DELETECORK
+#endif // METHODCORK
     } else {
 // Method not supported
       cJSON *json = cJSON_CreateObject();
@@ -159,6 +139,15 @@ static int request_handler(void *cls, struct MHD_Connection *connection,
       char *response = cJSON_PrintUnformatted(json);
       cJSON_Delete(json);
     }
+#if METHODCORK == 1
+    cJSON *json = cJSON_CreateObject();
+    cJSON_AddStringToObject(json, "status", "CORK");
+    cJSON_AddStringToObject(json, "method", method);
+    cJSON_AddStringToObject(json, "url", url);
+    cJSON_AddNumberToObject(json, "httpcode", HTTP_OK);
+    char *response = cJSON_PrintUnformatted(json);
+    cJSON_Delete(json);
+#endif    
 int ret = send_json_response(connection, response);
 free(response); // Free the allocated JSON string
 return ret;
