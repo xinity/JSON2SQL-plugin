@@ -73,5 +73,5 @@ static char* handle_patch_request(const char *url, const char *upload_data, size
   char *json_string = cJSON_PrintUnformatted(json);
   cJSON_Delete(json);
   return json_string; // Caller is responsible for freeing this memory   
-#endif PATCHCORK
+#endif // PATCHCORK
   }
