@@ -1,6 +1,3 @@
-//include
-#include "common.h"
-
 static char* handle_get_request(const char *url) {
 // initialize the JSON answer
     cJSON *json = cJSON_CreateObject();
