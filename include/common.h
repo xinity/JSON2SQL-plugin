@@ -38,18 +38,18 @@ extern const int num_resources;
 #define PLUGIN_AUTHOR        "Sylvain Arbaudie <arbaudie.it@gmail.com>"
 #define PLUGIN_DESCRIPTION   "simple JSON-to-SQL API Plugin for MariaDB"
 
-// are functions corked or not
-#define GETCORK           1
-#define PUTCORK           1
-#define POSTCORK          1
-#define PATCHCORK         1
-#define DELETECORK        1
-#define HANDLERCORK       0
-#define GETMETHODCORK     1
-#define PUTMETHODCORK     1
-#define POSTMETHODCORK    1
-#define PATCHMETHODCORK   1
-#define DELETEMETHODCORK  1
+// corks definitions
+#define GETCORK           1 // inside method handler
+#define PUTCORK           1 // inside method handler
+#define POSTCORK          1 // inside method handler
+#define PATCHCORK         1 // inside method handler
+#define DELETECORK        1 // inside method handler
+#define HANDLERCORK       0 // global handler cork
+#define GETMETHODCORK     1 // around method handler call
+#define PUTMETHODCORK     1 // around method handler call
+#define POSTMETHODCORK    1 // around method handler call
+#define PATCHMETHODCORK   1 // around method handler call
+#define DELETEMETHODCORK  1 // around method handler call
 
 // defining use HTTP response codes
 #define HTTP_OK                     200
