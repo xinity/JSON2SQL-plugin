@@ -1,6 +1,3 @@
-//include
-#include "common.h"
-
 static char* handle_patch_request(const char *url, const char *upload_data, size_t *upload_data_size) {
 // initialize the JSON answer
     cJSON *json = cJSON_CreateObject(); 
