@@ -11,7 +11,8 @@ static char* handle_put_request(const char *url, const char *request_body, size_
     cJSON_Delete(json);
     return json_string; // Caller is responsible for freeing this memory
 #else
-    
+    char schema[64];
+    char procname[64];
 // check request format, parameter extraction & statement exec
   if (sscanf(url, "/v1/procedures/%64[^/]/%64s", schema, procname) == 2) {  
     // initializing the variables 
