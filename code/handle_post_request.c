@@ -10,13 +10,14 @@ static char* handle_post_request(const char *url, const char *upload_data, size_
     cJSON_Delete(json);
     return json_string; // Caller is responsible for freeing this memory
 #else
+
+    char schema[64];  
+    char table[64];
     
 // check request format, parameter extraction & statement exec
   if (sscanf(url, "/v1/tables/%64[^/]/%64s", schema, table) == 2) {  
     // initializing the variables 
     char query[512]="";
-    char schema[64];  
-    char table[64];
 // Here query database
     snprintf(query, sizeof(query), "'INSERT INTO %s.%s'", schema, table);
 // looping over request body to extract 
