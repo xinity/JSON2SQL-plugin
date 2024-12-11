@@ -2,16 +2,11 @@
 #include "common.h"
 #include <arpa/inet.h>
 
-// MariaDB headers
-#ifndef MYSQL_DYNAMIC_PLUGIN
-#define MYSQL_DYNAMIC_PLUGIN
-#endif
-
 // micro httpd headers
 #include <microhttpd.h>
 
 // request handlers headers
-#include "handle_get_request.h"
+// #include "handle_get_request.h"
 // #include "handle_post_request.h"
 // #include "handle_put_request.h"
 // #include "handle_patch_request.h"
@@ -55,7 +50,7 @@ static int send_json_response(struct MHD_Connection *connection, const char *jso
     cJSON *field = cJSON_GetObjectItemCaseSensitive(json, "httpcode");
     unsigned int http_code = field->valueint; 
     cJSON_Delete(json);
-    if (httpcode == 405) {
+    if (http_code == 405) {
 // mandatory allow header for HTTP 405
         MHD_add_response_header(response, MHD_HTTP_HEADER_ALLOW, "GET, POST, PUT, PATCH, DELETE");
     }
