@@ -6,11 +6,11 @@
 #include <microhttpd.h>
 
 // request handlers headers
-// #include "handle_get_request.h"
-// #include "handle_post_request.h"
-// #include "handle_put_request.h"
-// #include "handle_patch_request.h"
-// #include "handle_delete_request.h"
+#include "handle_get_request.h"
+#include "handle_post_request.h"
+#include "handle_put_request.h"
+#include "handle_patch_request.h"
+#include "handle_delete_request.h"
 
 struct MHD_Daemon;
 
