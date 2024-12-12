@@ -20,7 +20,7 @@ add_library(json2sql MODULE ${SOURCES})
 target_include_directories(json2sql
     PRIVATE
         /usr/include/mysql/server
-        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_SOURCE_DIR}/include
 )
 
 target_link_libraries(json2sql cjson microhttpd mysqlservices)
