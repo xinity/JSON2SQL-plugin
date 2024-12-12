@@ -1,4 +1,6 @@
-static char* handle_post_request(const char *url, const char *upload_data, size_t *upload_data_size) {
+#include "common.h"
+
+char* handle_post_request(const char *url, const char *upload_data, size_t *upload_data_size) {
 // initialize the JSON answer
     cJSON *json = cJSON_CreateObject();  
 #if POSTCORK == 1
