@@ -1,4 +1,6 @@
-static char* handle_delete_request(const char *url) {
+#include "common.h"
+
+char* handle_delete_request(const char *url) {
 // initialize the JSON answer
     cJSON *json = cJSON_CreateObject();  
 
