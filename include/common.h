@@ -1,13 +1,8 @@
 // global libs inclusion
-
 //preventing inclusion duplication 
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
-// MariaDB headers
-#ifndef MYSQL_DYNAMIC_PLUGIN
-#define MYSQL_DYNAMIC_PLUGIN
-#endif
 
 // C shenanigans
 #include <ctype.h>
@@ -17,7 +12,7 @@
 
 // MariaDB headers
 #include <mysql.h>
-#include <mysql/plugin.h>
+#include <mysql/service_sql.h>
 
 // cJSON headers
 #include <cjson/cJSON.h>
@@ -44,7 +39,7 @@ extern const int num_resources;
 #define POSTCORK          1 // inside method handler
 #define PATCHCORK         1 // inside method handler
 #define DELETECORK        1 // inside method handler
-#define HANDLERCORK       0 // global handler cork
+#define HANDLERCORK       1 // global handler cork
 #define GETMETHODCORK     1 // around method handler call
 #define PUTMETHODCORK     1 // around method handler call
 #define POSTMETHODCORK    1 // around method handler call
@@ -71,7 +66,7 @@ extern const int num_resources;
 // default exposed resources
 #define HEALTHCHECK_RESOURCE   "/v1/"
 #define STATUS_RESOURCE        "/v1/status/"
-#define SUBSCRIPTION_RESOURCE  "/v1/subscription/"
+// #define SUBSCRIPTION_RESOURCE  "/v1/subscription/"
 #define RESOURCES_RESOURCE     "/v1/resources/"
 
 // ease the use of mysql_real_query
