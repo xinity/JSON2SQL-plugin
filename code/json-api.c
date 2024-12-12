@@ -115,7 +115,7 @@ static int request_handler(void *cls, struct MHD_Connection *connection,
     cJSON_Delete(json)
 #else
       char *response = handle_patch_request(url, upload_data, upload_data_size);
-#endif //METHODCORK
+#endif // PATCHMETHODCORK
     } else if (strcmp(method, "PUT") == 0) {
 // CALL
 #if PUTMETHODCORK == 1
