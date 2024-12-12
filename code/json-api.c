@@ -1,6 +1,12 @@
 // global headers for the project 
 #include "common.h"
 #include <arpa/inet.h>
+#include <mysql/plugin.h>
+
+// MariaDB headers
+#ifndef MYSQL_DYNAMIC_PLUGIN
+#define MYSQL_DYNAMIC_PLUGIN
+#endif
 
 // micro httpd headers
 #include <microhttpd.h>
@@ -11,8 +17,6 @@
 #include "handle_put_request.h"
 #include "handle_patch_request.h"
 #include "handle_delete_request.h"
-
-struct MHD_Daemon;
 
 // Plugin declaration structure
 static struct st_mysql_daemon json_api_plugin = {
@@ -60,6 +64,7 @@ static int send_json_response(struct MHD_Connection *connection, const char *jso
     return ret;
 }
 
+// directing requests to the right handling function
 static int request_handler(void *cls, struct MHD_Connection *connection,
                            const char *url, const char *method,
                            const char *version, const char *upload_data,
@@ -68,9 +73,6 @@ static int request_handler(void *cls, struct MHD_Connection *connection,
     cJSON *json = cJSON_CreateObject();
 #if HANDLERCORK == 1
 // initialize the JSON answer
-    char buffer[128];
-    int len = snprintf(buffer, sizeof(buffer), "method:%s, url:%s",method,url);
-    printf("%s\n", buffer);
     cJSON_AddStringToObject(json, "status", "CORK");
     cJSON_AddStringToObject(json, "method", method);
     cJSON_AddStringToObject(json, "url", url);
@@ -79,6 +81,7 @@ static int request_handler(void *cls, struct MHD_Connection *connection,
     cJSON_Delete(json);
 #else
      if (strcmp(method, "GET") == 0) {
+// SELECT
 #if GETMETHODCORK ==1
     cJSON_AddStringToObject(json, "status", "GETMETHODCORK");
     cJSON_AddStringToObject(json, "method", method);
@@ -139,16 +142,15 @@ static int request_handler(void *cls, struct MHD_Connection *connection,
 #endif // DELETEMETHODCORK
     } else {
 // Method not supported
-      cJSON *json = cJSON_CreateObject();
+      cJSON_AddStringToObject(json, "status", "METHODNOTALLOWED");
       cJSON_AddStringToObject(json, "error", "method not allowed");
+      cJSON_AddStringToObject(json, "method", method);
+      cJSON_AddStringToObject(json, "url", url);
       cJSON_AddNumberToObject(json, "httpcode", HTTP_METHOD_NOT_ALLOWED);
 // clean exit procedure w/ housekeeping
       char *response = cJSON_PrintUnformatted(json);
       cJSON_Delete(json);
-    }
-#if METHODCORK == 1
-
-#endif    
+    } 
 #endif // HANDLERCORK
     int ret = send_json_response(connection, response);
     free(response); // Free the allocated JSON string
