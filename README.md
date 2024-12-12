@@ -36,6 +36,7 @@ The goal is to provide an easy way to map simple DML statements and stored proce
 ## Contributions
 
 * [Awesome people](https://github.com/SylvainA77/JSON-API-plugin/blob/main/Contributions.md)
+* If you want  to contribute, please take a olook at branches. There will be one per http method to handle with corresponding name : GET for HTPP GET etc ...
 
   ## design decisions
 * [discussion](https://github.com/SylvainA77/JSON2SQL-plugin/blob/main/doc/stack-n-architecture-decisions.md)
