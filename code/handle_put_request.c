@@ -1,4 +1,6 @@
-static char* handle_put_request(const char *url, const char *request_body, size_t *request_body_size) {
+#include "common.h"
+
+char* handle_put_request(const char *url, const char *request_body, size_t *request_body_size) {
 // initialize the JSON answer
     cJSON *json = cJSON_CreateObject();  
 
