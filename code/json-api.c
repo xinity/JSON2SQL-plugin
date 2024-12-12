@@ -19,12 +19,12 @@
 #include "handle_delete_request.h"
 
 // Plugin declaration structure
-static struct st_mysql_daemon json_api_plugin = {
+struct st_mysql_daemon json_api_plugin = {
     MYSQL_DAEMON_INTERFACE_VERSION
 };
 
 // defining the daemon structure
-static struct MHD_Daemon *listener = NULL;
+struct MHD_Daemon *listener = NULL;
 
 // Function to check if the requested URL is a valid resource
 // resource format : 
