@@ -3,6 +3,10 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
+// MariaDB headers
+#ifndef MYSQL_DYNAMIC_PLUGIN
+#define MYSQL_DYNAMIC_PLUGIN
+#endif
 
 // C shenanigans
 #include <ctype.h>
