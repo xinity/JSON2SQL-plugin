@@ -1,20 +1,21 @@
+ARG ROCKYVER=8
+ARG MARIAVERS=11.4
 # Use Rocky Linux as the base image
-FROM rockylinux/rockylinux:8 AS build
+FROM rockylinux/rockylinux:${ROCKYVERS} AS build
 
 # Add a label for the image author
 LABEL maintainer="arbaudie.it@gmail.com"
 
-# Install necessary tools and libraries
-RUN dnf update -y && yum install -y epel-release
-RUN dnf install -y git gcc gcc-c++ cmake curl net-tools cjson-devel
-RUN dnf --enablerepo=devel install -y libmicrohttpd-devel
-#housekeeping time
-RUN yum clean all
-
+# Install necessary tools and libraries and housekeeping time
+RUN dnf update -y && yum install -y epel-release \ 
+    && dnf install -y git gcc gcc-c++ cmake curl net-tools cjson-devel \
+    && dnf --enablerepo=devel install -y libmicrohttpd-devel \
+    && yum clean all
 
 # Add MariaDB 11.4 repository and install it + devel headers + housekeeping
-RUN curl -sSL https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash -s -- --mariadb-server-version="mariadb-11.4" && \
-    yum install -y MariaDB-server MariaDB-client MariaDB-devel && yum clean all
+RUN curl -sSL https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash -s -- --mariadb-server-version=mariadb-${MARIAVERS} \
+    && yum install -y MariaDB-server MariaDB-client MariaDB-devel \ 
+    && yum clean all
 
 # Set the working directory
 WORKDIR /opt
